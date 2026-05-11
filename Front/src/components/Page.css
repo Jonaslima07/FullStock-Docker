@@ -1,0 +1,139 @@
+.dashboard-container {
+  position: relative;
+  min-height: 100vh;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  color: rgba(0, 0, 0, 0.897);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  overflow: hidden;
+  
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.85);
+  backdrop-filter: blur(3px);
+
+}
+
+.dashboard-content {
+  position: relative;
+  z-index: 2;
+  max-width: 900px;
+  padding: 2rem;
+  position: relative;
+  margin-bottom: 50px; 
+  
+}
+
+.badge {
+  display: inline-block;
+  background-color: transparent;
+  border: 1px solid #ffcc00;
+  color: #ffcc00;
+  padding: 6px 16px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 20px;
+  position: relative;
+  margin-right: 50px;
+}
+
+.title {
+  font-size: 3rem;
+  font-weight: 800;
+  color: #ffcc00;
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+.title p {
+  background: linear-gradient(to right,hsl(45, 100%, 76%), #ffcc00);
+  -webkit-background-clip: text;
+  color: transparent;
+  font-weight: 800;
+  display: inline-block;
+  margin-top: 1rem;
+}
+
+
+.subtitle {
+  font-size: 1.2rem;
+  color: hsl(45, 100%, 72%);
+}
+
+.buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 3rem;
+  
+}
+
+.btn {
+  font-size: 1rem;
+  font-weight: 600;
+  padding: 12px 28px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-primary {
+  background-color: #ffcc00;
+  color: black;
+  border: none;
+}
+
+.btn-primary:hover {
+  background-color: #ffd633;
+  transform: scale(1.05);
+}
+
+.btn-secondary {
+  background: transparent;
+  border: 1px solid #ffcc00;
+  color: #ffcc00;
+}
+
+.btn-secondary:hover {
+  background-color: #ffcc00;
+  color: black;
+  transform: scale(1.05);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 2rem;
+  color: #ffcc00;
+  margin-right: 40px;
+  position: relative;
+  margin-top: 5rem;
+}
+
+.stats h2 {
+  font-size: 2rem;
+  margin: 0;
+}
+
+.stats p {
+  color: #ffcc00;
+  font-size: 0.9rem;
+}
+.secao{
+  color: #ffcc00;
+  position: relative;
+  margin-top: 100px;
+}
+
+.h1{
+  font-size: 2rem;
+}

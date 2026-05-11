@@ -1,0 +1,153 @@
+.footer {
+  border-top: 2px solid #333;
+  padding: 1rem;
+  background-color: #000000;
+}
+
+.footer-container {
+  max-width: 100%;
+  margin: 0 auto;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(10px, 1fr));
+  gap: 8rem;
+  margin-bottom: 3rem;
+  
+}
+
+
+.footer-section ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.produto ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.produto{
+  color: hsl(0, 0%, 100%);
+  position: relative;
+  left: 15rem;
+}
+
+.produto a:hover{
+  color: hsl(45, 100%, 50%);
+}
+
+.legal ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.legal{
+  color: hsl(45, 100%, 76%);
+  position: relative;
+  right: 5rem;
+}
+
+.legal a:hover{
+  color: hsl(45, 100%, 50%);
+}
+
+.empresa ul{
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.empresa{
+  color: hsl(45, 100%, 76%);
+  position: relative;
+  left:  80px;
+}
+
+.empresa a:hover{
+  color: hsl(45, 100%, 50%);
+}
+
+.footer-section a {
+  text-decoration: none;
+  color: hsl(45, 100%, 76%);
+  transition: color 0.3s;
+}
+
+.footer-section a:hover {
+  color: hsl(45, 100%, 50%);
+}
+
+.footer-title {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color:  #ffcc00;
+}
+
+.footer-subtitle {
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: hsl(45 100% 55%);
+}
+
+.footer-text {
+  color: hsl(45, 100%, 76%);
+  font-size: 0.9rem;
+  margin-top: 8px;
+ 
+}
+
+.footer-bottom {
+  border-top: 1px solid #333;
+  padding-top: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  color: hsl(45, 100%, 76%);
+  
+
+}
+
+@media (min-width: 768px) {
+  .footer-bottom {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+}
+
+.footer-icons {
+  display: flex;
+  gap: 1rem;
+  position: relative;
+  margin-right: 50px;
+}
+
+.footer-icons a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #ffcc00;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  color: hsl(0, 0%, 100%);
+  transition: all 0.3s ease;
+  text-decoration: none;
+ 
+}
+
+.footer-icons a:hover {
+  border-color: hsl(45 100% 55%);
+  background-color: hsl(45 100% 55%);
+  color: hsl(45 100% 55%);
+}
+a {
+  text-decoration: none;
+  color: hsl(0, 0%, 100%);
+  
+}

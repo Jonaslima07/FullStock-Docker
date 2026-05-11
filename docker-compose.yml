@@ -1,0 +1,36 @@
+services:
+
+  postgres:
+    image: postgres:16
+    restart: always
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: 1234
+      POSTGRES_DB: bancofull
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+
+  redis:
+    image: redis:7
+
+  backend:
+    build: ./Back
+    ports:
+      - "5000:5000"
+    depends_on:
+      - postgres
+      - redis
+    env_file:
+      - ./Back/.env
+
+  frontend:
+    build: ./Front
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+
+volumes:
+  postgres_data:

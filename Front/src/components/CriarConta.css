@@ -1,0 +1,154 @@
+/* Container principal */
+.container-criar-conta {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: linear-gradient(135deg, #0f0f0f, #505050);
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+/* Título */
+.h2-text {
+  color: #ffffff;
+  margin-bottom: 20px;
+  font-size: 28px;
+  font-weight: 600;
+}
+
+/* Card do formulário */
+.form-conta {
+  background-color: #0f0f0f;
+  width: 100%;
+  max-width: 420px;
+  padding: 30px;
+  border-radius: 10px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* Form */
+.form-conta form {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Labels */
+.form-conta label {
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #ffffff;
+  font-weight: 500;
+}
+
+/* Inputs */
+.form-conta input {
+  padding: 8px;
+  margin-bottom: 15px;
+  border-radius: 6px;
+  border: 1px solid #d1d5db;
+  font-size: 14px;
+  transition:
+    border-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.form-conta input:focus {
+  outline: none;
+  border-color: #6366f1;
+  box-shadow: 0 0 0 2px rgba(99, 102, 241, 0.2);
+}
+
+/* Botão principal */
+.form-conta button[type="submit"] {
+  background-color: #d4af37;
+  color: #000000;
+  border: none;
+  padding: 12px;
+  border-radius: 6px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    opacity 0.2s;
+  margin-top: 50px;
+}
+
+.form-conta button[type="submit"]:hover {
+  background-color: #fff;
+  color: #d4af37;
+}
+
+.form-conta button[type="submit"]:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.text-login {
+  margin-top: 20px;
+  text-align: center;
+  font-size: 14px;
+  color: #ffffff;
+
+  display: flex;
+  flex-direction: column; /* 🔥 empilha */
+  align-items: center;
+  gap: 6px; /* espaço entre texto e link */
+}
+
+.text-login .link {
+  display: inline;
+  margin-left: 4px;
+  top: 2px;
+}
+
+/* Link */
+.link {
+  color: #d4af37;
+  font-weight: 600;
+  text-decoration: none;
+  right: 10px;
+}
+
+.link:hover {
+  text-decoration: underline;
+}
+
+/* Botão Google */
+.button-google {
+  margin-top: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: #ffffff;
+  color: #374151;
+  border: 1px solid #d1d5db;
+  padding: 10px;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition:
+    background-color 0.2s,
+    box-shadow 0.2s;
+}
+
+.button-google:hover {
+  background-color: #f9fafb;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+}
+
+/* Responsivo */
+@media (max-width: 480px) {
+  .form-conta {
+    padding: 20px;
+  }
+
+  .h2-text {
+    font-size: 24px;
+    text-align: center;
+  }
+}

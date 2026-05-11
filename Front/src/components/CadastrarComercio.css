@@ -1,0 +1,119 @@
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Arial, sans-serif;
+}
+
+.container-comercio {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #0f0f0f, #505050);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+}
+
+.h2-text {
+  color: #d4af37;
+  margin-bottom: 16px;
+  text-align: center;
+  font-size: 1.6rem;
+  max-width: 420px;
+}
+
+.cadastro-comercio {
+  background-color: #121212;
+  width: 100%;
+  max-width: 420px;
+  padding: 32px;
+  border-radius: 12px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.7);
+}
+
+
+.cadastro-comercio form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+
+.cadastro-comercio label {
+  color: #ccc;
+  font-size: 0.9rem;
+}
+
+.cadastro-comercio input {
+  padding: 12px;
+  border-radius: 8px;
+  border: 1px solid #333;
+  background-color: #1f1f1f;
+  color: #fff;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.3s ease;
+}
+
+.cadastro-comercio input::placeholder {
+  color: #777;
+}
+
+.cadastro-comercio input:focus {
+  border-color: #d4af37;
+  box-shadow: 0 0 0 2px rgba(212, 175, 55, 0.25);
+}
+
+
+.cadastro-comercio button {
+  margin-top: 20px;
+  padding: 14px;
+  width: 100%;
+  background-color: #d4af37;
+  color: #000;
+  border: none;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.2s ease;
+}
+
+.cadastro-comercio button:hover {
+  background-color: #fff;
+  transform: translateY(-1px);
+}
+
+.cadastro-comercio button:disabled {
+  background-color: #777;
+  cursor: not-allowed;
+  transform: none;
+}
+
+
+.error {
+  background-color: #2a0000;
+  color: #ff6b6b;
+  padding: 10px;
+  border-radius: 8px;
+  text-align: center;
+  font-size: 0.9rem;
+}
+
+
+@media (max-width: 480px) {
+  .container-comercio {
+    padding: 30px 16px;
+  }
+
+  .cadastro-comercio {
+    padding: 24px;
+  }
+
+  .h2-text {
+    font-size: 1.3rem;
+  }
+}

@@ -1,0 +1,130 @@
+
+.duvidas-container {
+    min-height: 100vh;
+    background: #0a0a0a;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    padding: 40px 20px;
+    color: #f5f5f5;
+
+}
+
+.duvidas-card {
+    background: #111;
+    width: 100%;
+    max-width: 800px;
+    padding: 40px;
+    border-radius: 18px;
+    position: relative;
+    margin-top: 50px;
+    border: 2px solid #d4af37;
+    box-shadow: 0 0 18px rgba(212, 175, 55, 0.4);
+
+    animation: fadeIn 0.4s ease-in-out;
+}
+
+
+.duvidas-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #d4af37;
+    border-bottom: 2px solid rgba(212, 175, 55, 0.4);
+    padding-bottom: 12px;
+    margin-bottom: 25px;
+    letter-spacing: 1px;
+}
+
+.duvidas-question h2 {
+    font-size: 24px;
+    color: #ffd977;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+.duvidas-answer p {
+    font-size: 18px;
+    color: #e6e6e6;
+    margin-bottom: 10px;
+
+    padding-left: 12px;
+    border-left: 3px solid #d4af37;
+
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.duvidas-answer p:hover {
+    transform: translateX(6px);
+    color: #ffd977;
+}
+
+
+.text {
+    margin-top: 45px;
+    max-width: 800px;
+    text-align: center;
+    color: #ffd977;
+    font-size: 18px;
+    line-height: 1.7;
+    padding-top: 25px;
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
+
+    animation: fadeIn 0.6s ease-in-out;
+}
+
+.return{
+    margin-top: 45px;
+    max-width: 800px;
+    border-top: 1px solid rgba(212, 175, 55, 0.35);
+    animation: fadeIn 0.6s ease-in-out;
+    text-align: center;
+    font-size: 18px;
+    line-height: 1.7;
+    padding-top: 25px;
+    width: 100%; 
+
+}
+
+.div-botao{
+    position: relative;
+    margin-top: 25px;
+}
+
+.botao {
+   background-color: transparent;
+   border-radius: 10px;
+   padding: 12px 28px;
+   color: white;
+    border: 1px solid #ffcc00;
+}
+
+.botao:hover{
+    background-color: #ffcc00;
+    color: black;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 600px) {
+    .duvidas-card {
+        padding: 25px;
+    }
+
+    .duvidas-title {
+        font-size: 24px;
+    }
+
+    .duvidas-question h2 {
+        font-size: 20px;
+    }
+
+    .duvidas-answer p {
+        font-size: 16px;
+    }
+
+    .text {
+        font-size: 16px;
+        padding-top: 20px;
+    }
+}
