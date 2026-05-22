@@ -1,0 +1,55 @@
+# FullStock
+
+O FullStock foi desenvolvido para oferecer uma solução eficiente para gerenciamento de estoque em mercados e estabelecimentos comerciais, proporcionando maior controle operacional, monitoramento da validade dos produtos com alertas automáticos para garantir mais segurança e qualidade, além da organização de produtos e acompanhamento das movimentações do sistema.
+
+---
+
+## Como Funciona
+
+
+
+## 🚀 Funcionalidades
+
+- Cadastro de produtos
+- Controle de estoque
+- Controle de entradas e saídas
+- Dashboard administrativo
+- Sistema de autenticação JWT
+- Gerenciamento de usuários
+- Pesquisa e filtragem de produtos
+- Interface responsiva
+
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+### Frontend
+- React
+- JavaScript
+- CSS
+- Fetch
+
+### Backend
+- Flask
+- Python
+- JWT Authentication
+- SQLAlchemy
+
+### Banco de Dados
+- MySQL
+
+### Ferramentas
+- Docker
+- Git
+- GitHub
+- Nginx
+
+---
+
+## 📦 Instalação e Execução
+
+### Clone o repositório
+
+```bash
+git clone URL_DO_REPOSITORIO
