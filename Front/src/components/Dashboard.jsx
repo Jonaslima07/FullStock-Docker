@@ -29,7 +29,7 @@ const Dashboard = () => {
     try {
       const token = localStorage.getItem("token");
 
-      const response = await fetch("https://fullstock-back.onrender.com/produtos", {
+      const response = await fetch("http://localhost:5000/produtos", {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -91,7 +91,7 @@ const Dashboard = () => {
       return;
     }
 
-    fetch("https://fullstock-back.onrender.com/usuarios/me", {
+    fetch("http://localhost:5000/usuarios/me", {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -147,6 +147,7 @@ const Dashboard = () => {
     <div className="stock-dashboard">
       <div className="header-links">
         <div className="header-left">
+          <div className="links-container">
           <Link className="link-header" to="/">
             Home
           </Link>
@@ -154,6 +155,11 @@ const Dashboard = () => {
           <Link className="link-produtos" to="/cadastrarprodutos">
             Cadastrar Produtos
           </Link>
+
+           <Link className="link-pdv" to="/pdv">
+            Ponto de Venda
+          </Link>
+          </div>
         </div>
 
         <div

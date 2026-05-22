@@ -14,6 +14,7 @@ from resources.Usuarios import usuarios_bp
 from resources.Produtos import produtos_bp
 from resources.Comercios import comercios_bp
 from resources.AuthFirebase import authFirebase_bp
+from resources.Vendas import vendas_bp
 from flask_jwt_extended import JWTManager
 from helpers.firebase import firebase_conf
 
@@ -66,6 +67,7 @@ app.register_blueprint(usuarios_bp)
 app.register_blueprint(produtos_bp)
 app.register_blueprint(comercios_bp)
 app.register_blueprint(authFirebase_bp)
+app.register_blueprint(vendas_bp)
 
 if __name__ == "__main__":
     app.run(debug=True, port=5000)

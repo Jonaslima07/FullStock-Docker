@@ -28,7 +28,7 @@ const CadastrarComercio = () => {
     return;
   }
 
-  fetch("https://fullstock-back.onrender.com/comercios/me", {
+  fetch("http://localhost:5000/comercios/me", {
     headers: {
       Authorization: `Bearer ${token}`,
     },
@@ -66,7 +66,7 @@ const CadastrarComercio = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("https://fullstock-back.onrender.com/comercios", {
+      const response = await fetch("http://localhost:5000/comercios", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

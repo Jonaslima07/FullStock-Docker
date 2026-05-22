@@ -8,17 +8,22 @@ class Usuario(db.Model):
     email = db.Column(
         db.String(120),
         unique=True,
-        index=True,  # 👈 cria índice no banco
+        index=True, 
         nullable=False
     )
     photo = db.Column(db.String(255))
     cpf = db.Column(db.String(11), nullable=True)
     senha = db.Column(db.String(255), nullable=True)
     cadastro_completo = db.Column(db.Boolean, default=False)
+    vendas = db.relationship(
+    "Vendas",
+    backref="usuario",
+    lazy=True
+)
 
     comercio = db.relationship(
         "Comercio",
         backref="usuario",
         uselist=False,
-        lazy="joined"  # 👈 evita query extra quando buscar usuário
+        lazy="joined"  
     )

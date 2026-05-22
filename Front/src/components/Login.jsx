@@ -31,7 +31,7 @@ const Login = () => {
     try {
       setLoading(true);
 
-      const response = await fetch("https://fullstock-back.onrender.com/usuarios/login", {
+      const response = await fetch("http://localhost:5000/usuarios/login", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -72,7 +72,7 @@ const Login = () => {
       const result = await signInWithPopup(auth, provider);
       const idToken = await result.user.getIdToken();
 
-      const response = await fetch("https://fullstock-back.onrender.com/auth/google", {
+      const response = await fetch("http://localhost:5000/auth/google", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

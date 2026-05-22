@@ -42,6 +42,7 @@ def listar_produtos():
             "tipo": p.tipo,
             "categoria": p.categoria,
             "quantidade": p.quantidade,
+            "codigo_barras": p.codigo_barras,
             "preco": p.preco,
             "unidade": p.unidade,
             "data_validade": str(p.data_validade)
@@ -74,6 +75,7 @@ def criar_produto():
         preco=dados["preco"],
         marca=dados["marca"],
         tipo=dados["tipo"],
+        codigo_barras=dados["codigo_barras"],
         unidade=dados["unidade"],
         data_validade=dados["data_validade"],
         comercio_id=usuario.comercio.id
@@ -83,7 +85,6 @@ def criar_produto():
     db.session.commit()
 
     return jsonify(produto_schema.dump(produto)), 201
-
 
 
 @produtos_bp.route("/produtos/<int:id>", methods=["PUT"])
@@ -118,6 +119,9 @@ def atualizar_produtos(id):
     if "tipo" in dados:
         produto.tipo = dados["tipo"]
 
+    if "codigo_barras" in dados:
+        produto.codigo_barras = dados["codigo_barras"]
+
     if "unidade" in dados:
         produto.unidade = dados["unidade"]
     
@@ -127,8 +131,6 @@ def atualizar_produtos(id):
     db.session.commit()
 
     return jsonify(produto_schema.dump(produto)), 200
-
-
 
 @produtos_bp.route("/produtos/<int:id>", methods=["DELETE"])
 @jwt_required()
@@ -143,3 +145,36 @@ def deletar_produto(id):
     db.session.commit()
 
     return jsonify({"message": "Produto removido com sucesso"}), 200
+
+@produtos_bp.route("/produtos/codigo/<string:codigo>",methods=["GET"])
+@jwt_required()
+def buscar_produto_codigo(codigo):
+
+    user_id = int(get_jwt_identity())
+
+    usuario = db.session.get(Usuario, user_id)
+
+    if not usuario:
+        return jsonify({
+            "msg": "Usuário não encontrado"
+        }), 404
+
+    produto = Produto.query.filter_by(
+        codigo_barras=codigo,
+        comercio_id=usuario.comercio.id
+    ).first()
+
+    if not produto:
+        return jsonify({
+            "msg": "Produto não encontrado"
+        }), 404
+
+    return jsonify({
+        "id": produto.id,
+        "nome": produto.nome,
+        "marca": produto.marca,
+        "categoria": produto.categoria,
+        "quantidade": produto.quantidade,
+        "preco": produto.preco,
+        "codigo_barras": produto.codigo_barras
+    }), 200

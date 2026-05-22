@@ -11,6 +11,7 @@ const CadastrarProdutos = () => {
     marca: "",
     preco: "",
     tipo: "",
+    codigo_barras: "",
     quantidade: "",
     unidade: "un",
     data_validade: "",
@@ -87,6 +88,7 @@ const CadastrarProdutos = () => {
         marca: form.marca,
         tipo: form.tipo,
         preco: Number(form.preco),
+        codigo_barras: form.codigo_barras,
         quantidade: Number(form.quantidade),
         unidade: form.unidade,
         data_validade: form.data_validade,
@@ -129,6 +131,7 @@ const CadastrarProdutos = () => {
         marca: "",
         preco: "",
         tipo: "",
+        codigo_barras: "",
         quantidade: "",
         unidade: "un",
         data_validade: "",
@@ -180,105 +183,85 @@ const CadastrarProdutos = () => {
       toast.error("Erro ao excluir");
     }
   }
+return (
+  <div className="container-principal">
+    <div className="header-produtos">
+      <div className="header-left">
+        <button
+          className="btn-voltar"
+          onClick={() => navigate("/dashboard")}
+        >
+          <FaArrowLeft />
+        </button>
 
-  return (
-    <div className="container-principal">
-      <div className="header-produtos">
-        <div className="header-left">
-          <button className="btn-voltar" onClick={() => navigate("/dashboard")}>
-            <FaArrowLeft />
-          </button>
+        <h2 className="titulo-produtos">Produtos Cadastrados</h2>
+      </div>
 
-          <h2>Produtos Cadastrados</h2>
-        </div>
+      <div className="header-actions">
+        <button className="btn-pdv" onClick={() => navigate("/pdv")}>
+          Ponto de Venda
+        </button>
 
         <button className="btn-add" onClick={() => setModalOpen(true)}>
           Adicionar
         </button>
       </div>
+    </div>
 
-      <div className="busca-container">
-        <input
-          type="text"
-          placeholder="Buscar produto..."
-          className="input-busca"
-          value={busca}
-          onChange={(e) => setBusca(e.target.value)}
-        />
-      </div>
+    <div className="busca-container">
+      <input
+        type="text"
+        placeholder="Buscar produto..."
+        className="input-busca"
+        value={busca}
+        onChange={(e) => setBusca(e.target.value)}
+      />
+    </div>
 
-      <div className="card-produtos">
-        <table className="tabela-produtos">
-          <thead>
-            <tr>
-              <th>Nome</th>
-              <th>Categoria</th>
-              <th>Marca</th>
-              <th>Tipo</th>
-              <th>Preço</th>
-              <th>Quantidade</th>
-              <th>Validade</th>
-              <th>Ações</th>
+    <div className="card-produtos">
+      <table className="tabela-produtos">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>Categoria</th>
+            <th>Marca</th>
+            <th>Tipo</th>
+            <th>Preço</th>
+            <th>Código de Barras</th>
+            <th>Quantidade</th>
+            <th>Validade</th>
+            <th>Ações</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {produtosFiltrados.map((p, index) => (
+            <tr
+              key={p.id}
+              className={index % 2 === 0 ? "linha-par" : "linha-impar"}
+            >
+              <td>{p.nome}</td>
+              <td>{p.categoria}</td>
+              <td>{p.marca}</td>
+              <td>{p.tipo}</td>
+              <td>R$ {Number(p.preco).toFixed(2)}</td>
+              <td>{p.codigo_barras}</td>
+              <td>{p.quantidade}</td>
+              <td>{p.data_validade}</td>
+
+              <td className="acoes">
+                <button className="btn-edit">✏️</button>
+                <button className="btn-delete">🗑️</button>
+              </td>
             </tr>
-          </thead>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  
 
-          <tbody>
-            {produtosFiltrados.length === 0 ? (
-              <tr>
-                <td colSpan="7">Nenhum produto encontrado</td>
-              </tr>
-            ) : (
-              produtosFiltrados.map((p, index) => (
-                <tr
-                  key={p.id}
-                  className={index % 2 === 0 ? "linha-par" : "linha-impar"}
-                >
-                  <td>{p.nome}</td>
-                  <td>{p.categoria}</td>
-                  <td>{p.marca}</td>
-                  <td>{p.tipo}</td>
-                  <td>R$ {Number(p.preco).toFixed(2)}</td>
-                  <td>{p.quantidade}</td>
-                  <td>{p.data_validade}</td>
 
-                  <td className="acoes">
-                    <button
-                      className="btn-edit"
-                      onClick={() => {
-                        setForm({
-                          nome: p.nome || "",
-                          categoria: p.categoria || "",
-                          marca: p.marca || "",
-                          tipo: p.tipo || "",
-                          preco: p.preco || "",
-                          quantidade: p.quantidade || "",
-                          unidade: p.unidade || "un",
-                          data_validade: p.data_validade
-                            ? p.data_validade.split("T")[0]
-                            : "",
-                        });
-                        setEditandoId(p.id);
-                        setModalOpen(true);
-                      }}
-                    >
-                      Editar
-                    </button>
 
-                    <button
-                      className="btn-delete"
-                      onClick={() => handleDelete(p.id)}
-                    >
-                      Excluir
-                    </button>
-                  </td>
-                </tr>
-              ))
-            )}
-          </tbody>
-        </table>
-      </div>
-
-      {/* 🪟 MODAL */}
       {modalOpen && (
         <div className="modal-overlay" onClick={() => setModalOpen(false)}>
           <div className="modal-content" onClick={(e) => e.stopPropagation()}>
@@ -290,6 +273,7 @@ const CadastrarProdutos = () => {
 
             <form onSubmit={handleSubmit}>
               <input
+                required
                 name="nome"
                 placeholder="Nome"
                 value={form.nome}
@@ -311,6 +295,13 @@ const CadastrarProdutos = () => {
                 name="marca"
                 placeholder="Marca"
                 value={form.marca}
+                onChange={handleChange}
+              />
+
+              <input
+                name="codigo_barras"
+                placeholder="Código de Barras"
+                value={form.codigo_barras}
                 onChange={handleChange}
               />
               <input

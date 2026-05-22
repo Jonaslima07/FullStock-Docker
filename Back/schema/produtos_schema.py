@@ -43,3 +43,5 @@ class ProdutoSchema(Schema):
         required=True,
         format="%Y-%m-%d"
     )
+
+    codigo_barras = fields.String(required=True)

@@ -57,7 +57,7 @@ const CompletarCadastro = () => {
 
     try {
       const response = await fetch(
-        "https://fullstock-back.onrender.com/usuarios/completar-cadastro",
+        "http://localhost:5000/usuarios/completar-cadastro",
         {
           method: "POST",
           headers: {

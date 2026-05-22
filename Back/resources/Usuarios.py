@@ -40,14 +40,14 @@ def get_usuario_logado():
 
 
 @usuarios_bp.route("/usuarios", methods=["POST"])
-@jwt_required()
+
 def criar_usuario():
     try:
         dados = usuario_schema.load(request.json)
     except ValidationError as err:
         return jsonify(err.messages), 400
 
-    # 🔥 VERIFICA ANTES (melhor UX)
+  
     usuario_existente = Usuario.query.filter_by(email=dados["email"]).first()
     if usuario_existente:
         logger.warning(f"TENTATIVA EMAIL DUPLICADO | EMAIL: {dados['email']}")

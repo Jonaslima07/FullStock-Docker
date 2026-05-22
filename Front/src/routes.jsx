@@ -1,6 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./templates/Layout";
 import Home from "./views/Home";
+import PDVPage from "./views/PDVPage";
 import CriarContaForm from "./views/CriarConta";
 import Duvidas from "./views/Duvidas";
 import NoPage from "./views/NoPage";
@@ -21,6 +22,7 @@ const router = createBrowserRouter([
       { index: true, element: <Home /> },
       { path: "criarconta", element: <CriarContaForm /> },
       { path:"cadastrarcomercio", element: <ComercioForm />},
+      { path:"pdv", element: <PDVPage />},
       { path: "duvidas", element: <Duvidas /> },
       { path:"cadastrarprodutos", element:<ProdutosForm/>},
       { path: "login", element: <LoginUser /> },
