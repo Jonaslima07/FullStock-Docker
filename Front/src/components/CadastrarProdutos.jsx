@@ -27,7 +27,11 @@ const CadastrarProdutos = () => {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setForm((prev) => ({ ...prev, [name]: value }));
+
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
   async function fetchProdutos() {
@@ -53,9 +57,11 @@ const CadastrarProdutos = () => {
       }
 
       const data = await res.json();
+
       setProdutos(data);
     } catch (err) {
       console.error(err);
+      toast.error("Erro ao carregar produtos");
     }
   }
 
@@ -66,8 +72,26 @@ const CadastrarProdutos = () => {
   const produtosFiltrados = produtos.filter((p) =>
     `${p.nome} ${p.categoria} ${p.marca}`
       .toLowerCase()
-      .includes(busca.toLowerCase()),
+      .includes(busca.toLowerCase())
   );
+
+  function handleEdit(produto) {
+    setEditandoId(produto.id);
+
+    setForm({
+      nome: produto.nome || "",
+      categoria: produto.categoria || "",
+      marca: produto.marca || "",
+      preco: produto.preco || "",
+      tipo: produto.tipo || "",
+      codigo_barras: produto.codigo_barras || "",
+      quantidade: produto.quantidade || "",
+      unidade: produto.unidade || "un",
+      data_validade: produto.data_validade || "",
+    });
+
+    setModalOpen(true);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -78,6 +102,7 @@ const CadastrarProdutos = () => {
       setLoading(true);
 
       const metodo = editandoId ? "PUT" : "POST";
+
       const url = editandoId
         ? `http://localhost:5000/produtos/${editandoId}`
         : "http://localhost:5000/produtos";
@@ -117,13 +142,19 @@ const CadastrarProdutos = () => {
 
       const data = await res.json();
 
-      if (!res.ok) throw new Error(data.message || "Erro ao salvar");
+      if (!res.ok) {
+        throw new Error(data.message || "Erro ao salvar produto");
+      }
 
-      toast.success(editandoId ? "Produto atualizado!" : "Produto cadastrado!");
+      toast.success(
+        editandoId
+          ? "Produto atualizado com sucesso!"
+          : "Produto cadastrado com sucesso!"
+      );
 
       setModalOpen(false);
+
       setEditandoId(null);
-      fetchProdutos();
 
       setForm({
         nome: "",
@@ -136,6 +167,8 @@ const CadastrarProdutos = () => {
         unidade: "un",
         data_validade: "",
       });
+
+      fetchProdutos();
     } catch (err) {
       console.error(err);
       toast.error(err.message);
@@ -148,20 +181,27 @@ const CadastrarProdutos = () => {
     const token = localStorage.getItem("token");
 
     if (!token) {
-      toast.error("Token não encontrado. Faça login novamente.");
+      toast.error("Token não encontrado.");
       navigate("/login");
       return;
     }
 
-    if (!window.confirm("Deseja excluir este produto?")) return;
+    const confirmar = window.confirm(
+      "Deseja realmente excluir este produto?"
+    );
+
+    if (!confirmar) return;
 
     try {
-      const res = await fetch(`http://localhost:5000/produtos/${id}`, {
-        method: "DELETE",
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+      const res = await fetch(
+        `http://localhost:5000/produtos/${id}`,
+        {
+          method: "DELETE",
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
 
       if (res.status === 401 || res.status === 422) {
         toast.error("Sessão expirada. Faça login novamente.");
@@ -175,101 +215,161 @@ const CadastrarProdutos = () => {
         return;
       }
 
-      if (!res.ok) throw new Error("Erro ao excluir");
+      if (!res.ok) {
+        throw new Error("Erro ao excluir produto");
+      }
 
-      toast.success("Produto excluído");
+      toast.success("Produto excluído com sucesso!");
+
       fetchProdutos();
     } catch (err) {
-      toast.error("Erro ao excluir");
+      console.error(err);
+      toast.error("Erro ao excluir produto");
     }
   }
-return (
-  <div className="container-principal">
-    <div className="header-produtos">
-      <div className="header-left">
-        <button
-          className="btn-voltar"
-          onClick={() => navigate("/dashboard")}
-        >
-          <FaArrowLeft />
-        </button>
 
-        <h2 className="titulo-produtos">Produtos Cadastrados</h2>
+  return (
+    <div className="container-principal">
+      <div className="header-produtos">
+        <div className="header-left">
+          <button
+            className="btn-voltar"
+            onClick={() => navigate("/dashboard")}
+          >
+            <FaArrowLeft />
+          </button>
+
+          <h2 className="titulo-produtos">
+            Produtos Cadastrados
+          </h2>
+        </div>
+
+        <div className="header-actions">
+          <button
+            className="btn-pdv"
+            onClick={() => navigate("/pdv")}
+          >
+            Ponto de Venda
+          </button>
+
+          <button
+            className="btn-add"
+            onClick={() => {
+              setEditandoId(null);
+
+              setForm({
+                nome: "",
+                categoria: "",
+                marca: "",
+                preco: "",
+                tipo: "",
+                codigo_barras: "",
+                quantidade: "",
+                unidade: "un",
+                data_validade: "",
+              });
+
+              setModalOpen(true);
+            }}
+          >
+            Adicionar
+          </button>
+        </div>
       </div>
 
-      <div className="header-actions">
-        <button className="btn-pdv" onClick={() => navigate("/pdv")}>
-          Ponto de Venda
-        </button>
-
-        <button className="btn-add" onClick={() => setModalOpen(true)}>
-          Adicionar
-        </button>
+      <div className="busca-container">
+        <input
+          type="text"
+          placeholder="Buscar produto..."
+          className="input-busca"
+          value={busca}
+          onChange={(e) => setBusca(e.target.value)}
+        />
       </div>
-    </div>
 
-    <div className="busca-container">
-      <input
-        type="text"
-        placeholder="Buscar produto..."
-        className="input-busca"
-        value={busca}
-        onChange={(e) => setBusca(e.target.value)}
-      />
-    </div>
-
-    <div className="card-produtos">
-      <table className="tabela-produtos">
-        <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Categoria</th>
-            <th>Marca</th>
-            <th>Tipo</th>
-            <th>Preço</th>
-            <th>Código de Barras</th>
-            <th>Quantidade</th>
-            <th>Validade</th>
-            <th>Ações</th>
-          </tr>
-        </thead>
-
-        <tbody>
-          {produtosFiltrados.map((p, index) => (
-            <tr
-              key={p.id}
-              className={index % 2 === 0 ? "linha-par" : "linha-impar"}
-            >
-              <td>{p.nome}</td>
-              <td>{p.categoria}</td>
-              <td>{p.marca}</td>
-              <td>{p.tipo}</td>
-              <td>R$ {Number(p.preco).toFixed(2)}</td>
-              <td>{p.codigo_barras}</td>
-              <td>{p.quantidade}</td>
-              <td>{p.data_validade}</td>
-
-              <td className="acoes">
-                <button className="btn-edit">✏️</button>
-                <button className="btn-delete">🗑️</button>
-              </td>
+      <div className="card-produtos">
+        <table className="tabela-produtos">
+          <thead>
+            <tr>
+              <th>Nome</th>
+              <th>Categoria</th>
+              <th>Marca</th>
+              <th>Tipo</th>
+              <th>Preço</th>
+              <th>Código de Barras</th>
+              <th>Quantidade</th>
+              <th>Validade</th>
+              <th>Ações</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
-    </div>
-  
+          </thead>
 
+          <tbody>
+            {produtosFiltrados.map((p, index) => (
+              <tr
+                key={p.id}
+                className={
+                  index % 2 === 0
+                    ? "linha-par"
+                    : "linha-impar"
+                }
+              >
+                <td>{p.nome}</td>
+                <td>{p.categoria}</td>
+                <td>{p.marca}</td>
+                <td>{p.tipo}</td>
 
+                <td>
+                  R$ {Number(p.preco).toFixed(2)}
+                </td>
+
+                <td>{p.codigo_barras}</td>
+
+                <td>{p.quantidade}</td>
+
+                <td>{p.data_validade}</td>
+
+                <td className="acoes">
+                  <button
+                    onClick={() => handleEdit(p)}
+                    className="btn-edit"
+                  >
+                    ✏️
+                  </button>
+
+                  <button
+                    onClick={() => handleDelete(p.id)}
+                    className="btn-delete"
+                  >
+                    🗑️
+                  </button>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
 
       {modalOpen && (
-        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
-          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-            <button className="modal-close" onClick={() => setModalOpen(false)}>
+        <div
+          className="modal-overlay"
+          onClick={() => setModalOpen(false)}
+        >
+          <div
+            className="modal-content"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <button
+              className="modal-close"
+              onClick={() => setModalOpen(false)}
+            >
               ✕
             </button>
 
-            <h3>{editandoId ? "Editar Produto" : "Cadastrar Produto"}</h3>
+            <h3>
+              {editandoId
+                ? "Editar Produto"
+                : "Cadastrar Produto"}
+            </h3>
 
             <form onSubmit={handleSubmit}>
               <input
@@ -279,22 +379,25 @@ return (
                 value={form.nome}
                 onChange={handleChange}
               />
+
               <input
                 name="categoria"
                 placeholder="Categoria"
                 value={form.categoria}
                 onChange={handleChange}
               />
-              <input
-                type="date"
-                name="data_validade"
-                value={form.data_validade}
-                onChange={handleChange}
-              />
+
               <input
                 name="marca"
                 placeholder="Marca"
                 value={form.marca}
+                onChange={handleChange}
+              />
+
+              <input
+                name="tipo"
+                placeholder="Tipo"
+                value={form.tipo}
                 onChange={handleChange}
               />
 
@@ -304,24 +407,28 @@ return (
                 value={form.codigo_barras}
                 onChange={handleChange}
               />
-              <input
-                name="tipo"
-                placeholder="Tipo"
-                value={form.tipo}
-                onChange={handleChange}
-              />
+
               <input
                 type="number"
+                step="0.01"
                 name="preco"
                 placeholder="Preço"
                 value={form.preco}
                 onChange={handleChange}
               />
+
               <input
                 type="number"
                 name="quantidade"
                 placeholder="Quantidade"
                 value={form.quantidade}
+                onChange={handleChange}
+              />
+
+              <input
+                type="date"
+                name="data_validade"
+                value={form.data_validade}
                 onChange={handleChange}
               />
 
@@ -336,7 +443,11 @@ return (
               </select>
 
               <button type="submit">
-                {loading ? "Salvando..." : "Salvar"}
+                {loading
+                  ? "Salvando..."
+                  : editandoId
+                  ? "Atualizar Produto"
+                  : "Cadastrar Produto"}
               </button>
             </form>
           </div>
