@@ -72,7 +72,7 @@ const CadastrarProdutos = () => {
   const produtosFiltrados = produtos.filter((p) =>
     `${p.nome} ${p.categoria} ${p.marca}`
       .toLowerCase()
-      .includes(busca.toLowerCase())
+      .includes(busca.toLowerCase()),
   );
 
   function handleEdit(produto) {
@@ -149,7 +149,7 @@ const CadastrarProdutos = () => {
       toast.success(
         editandoId
           ? "Produto atualizado com sucesso!"
-          : "Produto cadastrado com sucesso!"
+          : "Produto cadastrado com sucesso!",
       );
 
       setModalOpen(false);
@@ -186,22 +186,17 @@ const CadastrarProdutos = () => {
       return;
     }
 
-    const confirmar = window.confirm(
-      "Deseja realmente excluir este produto?"
-    );
+    const confirmar = window.confirm("Deseja realmente excluir este produto?");
 
     if (!confirmar) return;
 
     try {
-      const res = await fetch(
-        `http://localhost:5000/produtos/${id}`,
-        {
-          method: "DELETE",
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
+      const res = await fetch(`http://localhost:5000/produtos/${id}`, {
+        method: "DELETE",
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      });
 
       if (res.status === 401 || res.status === 422) {
         toast.error("Sessão expirada. Faça login novamente.");
@@ -232,23 +227,15 @@ const CadastrarProdutos = () => {
     <div className="container-principal">
       <div className="header-produtos">
         <div className="header-left">
-          <button
-            className="btn-voltar"
-            onClick={() => navigate("/dashboard")}
-          >
+          <button className="btn-voltar" onClick={() => navigate("/dashboard")}>
             <FaArrowLeft />
           </button>
 
-          <h2 className="titulo-produtos">
-            Produtos Cadastrados
-          </h2>
+          <h2 className="titulo-produtos">Produtos Cadastrados</h2>
         </div>
 
         <div className="header-actions">
-          <button
-            className="btn-pdv"
-            onClick={() => navigate("/pdv")}
-          >
+          <button className="btn-pdv" onClick={() => navigate("/pdv")}>
             Ponto de Venda
           </button>
 
@@ -262,11 +249,11 @@ const CadastrarProdutos = () => {
                 categoria: "",
                 marca: "",
                 preco: "",
+                data_validade: "",
                 tipo: "",
                 codigo_barras: "",
                 quantidade: "",
                 unidade: "un",
-                data_validade: "",
               });
 
               setModalOpen(true);
@@ -295,10 +282,12 @@ const CadastrarProdutos = () => {
               <th>Categoria</th>
               <th>Marca</th>
               <th>Tipo</th>
+              <th>Validade</th>
               <th>Preço</th>
               <th>Código de Barras</th>
               <th>Quantidade</th>
-              <th>Validade</th>
+              <th>Unidade</th>
+
               <th>Ações</th>
             </tr>
           </thead>
@@ -307,32 +296,24 @@ const CadastrarProdutos = () => {
             {produtosFiltrados.map((p, index) => (
               <tr
                 key={p.id}
-                className={
-                  index % 2 === 0
-                    ? "linha-par"
-                    : "linha-impar"
-                }
+                className={index % 2 === 0 ? "linha-par" : "linha-impar"}
               >
                 <td>{p.nome}</td>
                 <td>{p.categoria}</td>
                 <td>{p.marca}</td>
                 <td>{p.tipo}</td>
+                <td>{p.data_validade}</td>
 
-                <td>
-                  R$ {Number(p.preco).toFixed(2)}
-                </td>
+                <td>R$ {Number(p.preco).toFixed(2)}</td>
 
                 <td>{p.codigo_barras}</td>
 
                 <td>{p.quantidade}</td>
 
-                <td>{p.data_validade}</td>
+                <td>{p.unidade}</td>
 
                 <td className="acoes">
-                  <button
-                    onClick={() => handleEdit(p)}
-                    className="btn-edit"
-                  >
+                  <button onClick={() => handleEdit(p)} className="btn-edit">
                     ✏️
                   </button>
 
@@ -350,26 +331,13 @@ const CadastrarProdutos = () => {
       </div>
 
       {modalOpen && (
-        <div
-          className="modal-overlay"
-          onClick={() => setModalOpen(false)}
-        >
-          <div
-            className="modal-content"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <button
-              className="modal-close"
-              onClick={() => setModalOpen(false)}
-            >
+        <div className="modal-overlay" onClick={() => setModalOpen(false)}>
+          <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+            <button className="modal-close" onClick={() => setModalOpen(false)}>
               ✕
             </button>
 
-            <h3>
-              {editandoId
-                ? "Editar Produto"
-                : "Cadastrar Produto"}
-            </h3>
+            <h3>{editandoId ? "Editar Produto" : "Cadastrar Produto"}</h3>
 
             <form onSubmit={handleSubmit}>
               <input
@@ -402,6 +370,13 @@ const CadastrarProdutos = () => {
               />
 
               <input
+                type="date"
+                name="data_validade"
+                value={form.data_validade}
+                onChange={handleChange}
+              />
+
+              <input
                 name="codigo_barras"
                 placeholder="Código de Barras"
                 value={form.codigo_barras}
@@ -425,13 +400,6 @@ const CadastrarProdutos = () => {
                 onChange={handleChange}
               />
 
-              <input
-                type="date"
-                name="data_validade"
-                value={form.data_validade}
-                onChange={handleChange}
-              />
-
               <select
                 name="unidade"
                 value={form.unidade}
@@ -446,8 +414,8 @@ const CadastrarProdutos = () => {
                 {loading
                   ? "Salvando..."
                   : editandoId
-                  ? "Atualizar Produto"
-                  : "Cadastrar Produto"}
+                    ? "Atualizar Produto"
+                    : "Cadastrar Produto"}
               </button>
             </form>
           </div>

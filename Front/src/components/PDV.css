@@ -154,6 +154,29 @@
   transition: 0.3s;
 }
 
+.pdv-select-cartao {
+  width: 250px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #d1d5db;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  position:relative;
+  left: 20px;
+}
+
+.pdv-select-vezes {
+  width: 120px;
+  padding: 14px;
+  border-radius: 10px;
+  border: 2px solid #d1d5db;
+  font-size: 16px;
+  outline: none;
+  transition: 0.3s;
+  margin-left: 40px;
+}
+
 .pdv-select:focus {
   border-color: #2563eb;
 }
@@ -178,6 +201,99 @@
 .pdv-finalizar:disabled {
   opacity: 0.7;
   cursor: not-allowed;
+}
+
+.pdv-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.pdv-search-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 12px;
+  background: #000000;
+  color: #ffcc00;
+  font-size: 20px;
+  cursor: pointer;
+  transition: 0.2s;
+  margin-bottom: 40px;
+}
+
+.pdv-search-btn:hover {
+  transform: scale(1.10);
+  
+}
+
+
+.pdv-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  z-index: 999;
+}
+
+.pdv-modal-content {
+  width: 95%;
+  max-width: 1000px;
+  max-height: 85vh;
+  overflow-y: auto;
+
+  background: #1f1f1f;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.pdv-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 20px;
+}
+
+.pdv-close {
+  width: 40px;
+  height: 40px;
+  border: none;
+  border-radius: 10px;
+  background: red;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.pdv-produtos-lista {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 20px;
+}
+
+.pdv-produto-card {
+  background: #ffffff;
+  padding: 15px;
+  border-radius: 15px;
+  border: 1px solid #444;
+}
+.pdv-modal-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #ffcc00;
+}
+
+.pdv-produto-card h3 {
+  margin-bottom: 10px;
 }
 
 @media (max-width: 768px) {

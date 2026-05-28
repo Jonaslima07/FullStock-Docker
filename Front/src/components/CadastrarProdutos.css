@@ -6,10 +6,8 @@
   flex-direction: column;
   align-items: center;
   padding: 40px 20px;
-  
 }
 
-/* HEADER */
 
 .header-produtos {
   width: 100%;
@@ -18,7 +16,7 @@
   justify-content: space-between;
   align-items: center;
   gap: 20px;
-  margin-bottom: 80px;
+  margin-bottom: 40px;
   flex-wrap: wrap;
 }
 
@@ -32,8 +30,6 @@
   color: #d4af37;
   font-size: 1.8rem;
   margin: 0;
-  position: relative;
-  top: 30px;
 }
 
 .header-produtos h2 {
@@ -42,7 +38,7 @@
   margin: 0;
 }
 
-/* AÇÕES HEADER */
+
 
 .header-actions {
   display: flex;
@@ -50,7 +46,6 @@
   gap: 10px;
 }
 
-/* BOTÕES */
 
 .btn-add,
 .btn-pdv {
@@ -85,8 +80,6 @@
   justify-content: center;
   transition: 0.2s;
   font-size: 16px;
-  bottom: 20px;
-  position: relative;
 }
 
 .btn-voltar:hover {
@@ -94,7 +87,7 @@
   color: white;
 }
 
-/* BUSCA */
+
 
 .busca-container {
   width: 100%;
@@ -112,7 +105,7 @@
   outline: none;
 }
 
-/* CARD */
+
 
 .card-produtos {
   width: 100%;
@@ -120,29 +113,30 @@
   background: #121212;
   border-radius: 10px;
   overflow-x: auto;
-  padding: 5px;
+  padding: 0;
 }
 
-/* TABELA */
 
 .tabela-produtos {
   width: 100%;
   min-width: 1200px;
   border-collapse: collapse;
+  border-spacing: 0;
   background: #121212;
 }
 
 .tabela-produtos th {
   background: #1f1f1f;
   color: #d4af37;
-  padding: 14px 12px;
+  padding: 8px 10px;
   text-align: left;
   font-size: 0.95rem;
   white-space: nowrap;
+  border-bottom: 1px solid #2a2a2a;
 }
 
 .tabela-produtos td {
-  padding: 14px 12px;
+  padding: 8px 10px;
   color: #fff;
   border-bottom: 1px solid #222;
   vertical-align: middle;
@@ -157,17 +151,16 @@
   background: #1a1a1a;
 }
 
-/* LINHAS */
 
 .linha-par {
   background: #121212;
 }
 
 .linha-impar {
-  background: #1a1a1a;
+  background: #181818;
 }
 
-/* AÇÕES */
+
 
 .acoes {
   display: flex;
@@ -206,7 +199,7 @@
   background: #e53935;
 }
 
-/* MODAL */
+
 
 .modal-overlay {
   position: fixed;
@@ -283,7 +276,7 @@
   cursor: pointer;
 }
 
-/* RESPONSIVO */
+
 
 @media (max-width: 768px) {
   .header-produtos {
