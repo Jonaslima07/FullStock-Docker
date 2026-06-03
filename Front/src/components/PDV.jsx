@@ -2,7 +2,10 @@ import { useEffect, useRef, useState } from "react";
 import "./PDV.css";
 import { toast } from "react-toastify";
 import { FaSearch } from "react-icons/fa";
+import { FaArrowLeft } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import jsPDF from "jspdf";
+import html2canvas from "html2canvas";
 
 function PDV() {
   const [codigo, setCodigo] = useState("");
@@ -10,14 +13,22 @@ function PDV() {
   const [formaPagamento, setFormaPagamento] = useState("pix");
 
   const [mostrarProdutos, setMostrarProdutos] = useState(false);
+
   const [produtos, setProdutos] = useState([]);
 
+  const [mostrarComprovante, setMostrarComprovante] = useState(false);
+
+  const [dadosComprovante, setDadosComprovante] = useState(null);
+
   const [tipoCartao, setTipoCartao] = useState("credito");
+
   const [vezes, setVezes] = useState(1);
 
   const [loading, setLoading] = useState(false);
 
   const inputRef = useRef(null);
+
+  const comprovanteRef = useRef(null);
 
   const navigate = useNavigate();
 
@@ -35,7 +46,7 @@ function PDV() {
     if (inputRef.current) {
       inputRef.current.focus();
     }
-  }, []);
+  }, [navigate, token]);
 
   function verificarTokenExpirado(response) {
     if (response.status === 401 || response.status === 422) {
@@ -53,6 +64,42 @@ function PDV() {
     return false;
   }
 
+  async function baixarPDF() {
+    try {
+      const elemento = comprovanteRef.current;
+
+      if (!elemento) {
+        toast.error("Comprovante não encontrado");
+        return;
+      }
+
+      const canvas = await html2canvas(elemento, {
+        scale: 2,
+        useCORS: true,
+        backgroundColor: "#111111",
+      });
+
+      const imgData = canvas.toDataURL("image/png");
+
+      const pdf = new jsPDF({
+        orientation: "portrait",
+        unit: "mm",
+        format: "a4",
+      });
+
+      const larguraPDF = 190;
+
+      const alturaPDF = (canvas.height * larguraPDF) / canvas.width;
+
+      pdf.addImage(imgData, "PNG", 10, 10, larguraPDF, alturaPDF);
+
+      pdf.save("comprovante.pdf");
+    } catch (error) {
+      console.log(error);
+
+      toast.error("Erro ao gerar PDF");
+    }
+  }
   async function buscarProduto(e) {
     if (e.key !== "Enter") return;
 
@@ -76,6 +123,7 @@ function PDV() {
 
           headers: {
             "Content-Type": "application/json",
+
             Authorization: `Bearer ${token}`,
           },
         },
@@ -87,12 +135,11 @@ function PDV() {
 
       if (!response.ok) {
         toast.error(produto.msg || "Produto não encontrado");
+
         return;
       }
 
-      const produtoExiste = carrinho.find(
-        (item) => item.id === produto.id,
-      );
+      const produtoExiste = carrinho.find((item) => item.id === produto.id);
 
       if (produtoExiste) {
         const atualizado = carrinho.map((item) => {
@@ -143,26 +190,22 @@ function PDV() {
     try {
       setLoading(true);
 
-      const response = await fetch(
-        "http://localhost:5000/produtos",
-        {
-          method: "GET",
+      const response = await fetch("http://localhost:5000/produtos", {
+        method: "GET",
 
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        headers: {
+          "Content-Type": "application/json",
+
+          Authorization: `Bearer ${token}`,
         },
-      );
+      });
 
       if (verificarTokenExpirado(response)) return;
 
       const resultado = await response.json();
 
       if (!response.ok) {
-        toast.error(
-          resultado.msg || "Erro ao buscar produtos",
-        );
+        toast.error(resultado.msg || "Erro ao buscar produtos");
 
         return;
       }
@@ -212,9 +255,7 @@ function PDV() {
   }
 
   function removerProduto(id) {
-    const atualizado = carrinho.filter(
-      (item) => item.id !== id,
-    );
+    const atualizado = carrinho.filter((item) => item.id !== id);
 
     setCarrinho(atualizado);
   }
@@ -226,6 +267,7 @@ function PDV() {
   async function finalizarVenda() {
     if (carrinho.length === 0) {
       toast.error("Carrinho vazio");
+
       return;
     }
 
@@ -242,15 +284,10 @@ function PDV() {
 
       const dados = {
         forma_pagamento:
-          formaPagamento === "cartao"
-            ? tipoCartao
-            : formaPagamento,
+          formaPagamento === "cartao" ? tipoCartao : formaPagamento,
 
         parcelas:
-          formaPagamento === "cartao" &&
-          tipoCartao === "credito"
-            ? vezes
-            : 1,
+          formaPagamento === "cartao" && tipoCartao === "credito" ? vezes : 1,
 
         itens: carrinho.map((item) => ({
           produto_id: item.id,
@@ -258,19 +295,17 @@ function PDV() {
         })),
       };
 
-      const response = await fetch(
-        "http://localhost:5000/vendas",
-        {
-          method: "POST",
+      const response = await fetch("http://localhost:5000/vendas", {
+        method: "POST",
 
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: `Bearer ${token}`,
-          },
+        headers: {
+          "Content-Type": "application/json",
 
-          body: JSON.stringify(dados),
+          Authorization: `Bearer ${token}`,
         },
-      );
+
+        body: JSON.stringify(dados),
+      });
 
       if (verificarTokenExpirado(response)) return;
 
@@ -283,6 +318,17 @@ function PDV() {
       }
 
       toast.success("Venda realizada com sucesso");
+
+      setDadosComprovante({
+        itens: carrinho,
+        total,
+        formaPagamento,
+        tipoCartao,
+        parcelas: vezes,
+        data: new Date().toLocaleString(),
+      });
+
+      setMostrarComprovante(true);
 
       setCarrinho([]);
 
@@ -304,12 +350,14 @@ function PDV() {
     <div className="pdv-container">
       <div className="pdv-content">
         <div className="pdv-header">
+
+           <button className="btn-voltar" onClick={() => navigate("/cadastrarprodutos")}>
+                      <FaArrowLeft />
+                    </button>
+          
           <h1 className="pdv-title">PDV FullStock</h1>
 
-          <button
-            className="pdv-search-btn"
-            onClick={buscarTodosProdutos}
-          >
+          <button className="pdv-search-btn" onClick={buscarTodosProdutos}>
             <FaSearch />
           </button>
         </div>
@@ -325,9 +373,7 @@ function PDV() {
         />
 
         {carrinho.length === 0 ? (
-          <div className="pdv-empty">
-            Nenhum produto no carrinho
-          </div>
+          <div className="pdv-empty">Nenhum produto no carrinho</div>
         ) : (
           <div className="pdv-cart">
             {carrinho.map((item) => (
@@ -335,43 +381,24 @@ function PDV() {
                 <div className="pdv-item-info">
                   <h3>{item.nome}</h3>
 
-                  <p>
-                    R$ {Number(item.preco).toFixed(2)}
-                  </p>
+                  <p>R$ {Number(item.preco).toFixed(2)}</p>
                 </div>
 
                 <div className="pdv-quantity">
-                  <button
-                    onClick={() =>
-                      diminuirQuantidade(item.id)
-                    }
-                  >
-                    -
-                  </button>
+                  <button onClick={() => diminuirQuantidade(item.id)}>-</button>
 
                   <span>{item.quantidade}</span>
 
-                  <button
-                    onClick={() =>
-                      aumentarQuantidade(item.id)
-                    }
-                  >
-                    +
-                  </button>
+                  <button onClick={() => aumentarQuantidade(item.id)}>+</button>
                 </div>
 
                 <div className="pdv-price">
-                  R${" "}
-                  {(
-                    item.preco * item.quantidade
-                  ).toFixed(2)}
+                  R$ {(item.preco * item.quantidade).toFixed(2)}
                 </div>
 
                 <button
                   className="pdv-remove"
-                  onClick={() =>
-                    removerProduto(item.id)
-                  }
+                  onClick={() => removerProduto(item.id)}
                 >
                   Remover
                 </button>
@@ -381,15 +408,11 @@ function PDV() {
         )}
 
         <div className="pdv-footer">
-          <h2 className="pdv-total">
-            Total: R$ {total.toFixed(2)}
-          </h2>
+          <h2 className="pdv-total">Total: R$ {total.toFixed(2)}</h2>
 
           <select
             value={formaPagamento}
-            onChange={(e) =>
-              setFormaPagamento(e.target.value)
-            }
+            onChange={(e) => setFormaPagamento(e.target.value)}
             className="pdv-select"
           >
             <option value="pix">PIX</option>
@@ -402,37 +425,32 @@ function PDV() {
           {formaPagamento === "cartao" && (
             <select
               value={tipoCartao}
-              onChange={(e) =>
-                setTipoCartao(e.target.value)
-              }
+              onChange={(e) => setTipoCartao(e.target.value)}
               className="pdv-select-cartao"
             >
-              <option value="credito">
-                Crédito
-              </option>
+              <option value="credito">Crédito</option>
 
-              <option value="debito">
-                Débito
-              </option>
+              <option value="debito">Débito</option>
             </select>
           )}
 
-          {formaPagamento === "cartao" &&
-            tipoCartao === "credito" && (
-              <select
-                value={vezes}
-                onChange={(e) =>
-                  setVezes(e.target.value)
-                }
-                className="pdv-select-vezes"
-              >
-                <option value="1">1 vez</option>
-                <option value="2">2 vezes</option>
-                <option value="3">3 vezes</option>
-                <option value="4">4 vezes</option>
-                <option value="5">5 vezes</option>
-              </select>
-            )}
+          {formaPagamento === "cartao" && tipoCartao === "credito" && (
+            <select
+              value={vezes}
+              onChange={(e) => setVezes(e.target.value)}
+              className="pdv-select-vezes"
+            >
+              <option value="1">1 vez</option>
+
+              <option value="2">2 vezes</option>
+
+              <option value="3">3 vezes</option>
+
+              <option value="4">4 vezes</option>
+
+              <option value="5">5 vezes</option>
+            </select>
+          )}
 
           <br />
 
@@ -441,9 +459,7 @@ function PDV() {
             disabled={loading}
             className="pdv-finalizar"
           >
-            {loading
-              ? "Processando..."
-              : "Finalizar Venda"}
+            {loading ? "Processando..." : "Finalizar Venda"}
           </button>
         </div>
 
@@ -454,9 +470,7 @@ function PDV() {
                 <h2 className="pdv-modal-title">Produtos Cadastrados</h2>
 
                 <button
-                  onClick={() =>
-                    setMostrarProdutos(false)
-                  }
+                  onClick={() => setMostrarProdutos(false)}
                   className="pdv-close"
                 >
                   X
@@ -465,35 +479,115 @@ function PDV() {
 
               <div className="pdv-produtos-lista">
                 {produtos.map((produto) => (
-                  <div
-                    key={produto.id}
-                    className="pdv-produto-card"
-                  >
+                  <div key={produto.id} className="pdv-produto-card">
                     <h3>{produto.nome}</h3>
 
                     <p>
-                      <strong>Código:</strong>{" "}
-                      {produto.codigo_barras}
+                      <strong>Código:</strong> {produto.codigo_barras}
                     </p>
 
                     <p>
-                      <strong>Quantidade:</strong>{" "}
-                      {produto.quantidade}
+                      <strong>Quantidade:</strong> {produto.quantidade}
                     </p>
 
                     <p>
                       <strong>Preço:</strong> R${" "}
-                      {Number(produto.preco).toFixed(
-                        2,
-                      )}
+                      {Number(produto.preco).toFixed(2)}
                     </p>
 
                     <p>
-                      <strong>Categoria:</strong>{" "}
-                      {produto.categoria}
+                      <strong>Categoria:</strong> {produto.categoria}
                     </p>
                   </div>
                 ))}
+              </div>
+            </div>
+          </div>
+        )}
+
+        {mostrarComprovante && dadosComprovante && (
+          <div className="pdv-modal">
+            <div className="comprovante">
+              <div ref={comprovanteRef}>
+                <h2>COMPROVANTE DE VENDA</h2>
+
+                <div className="comprovante-topo">
+                  <div className="comprovante-info">
+                    <p className="comprovante-dados">
+                      <strong>Data:</strong> {dadosComprovante.data}
+                    </p>
+
+                    <p className="comprovante-dados">
+                      <strong>Pagamento:</strong>{" "}
+                      {dadosComprovante.formaPagamento}
+                    </p>
+                  </div>
+
+                  {dadosComprovante.formaPagamento === "cartao" && (
+                    <div className="comprovante-info">
+                      <p className="comprovante-dados">
+                        <strong>Tipo:</strong> {dadosComprovante.tipoCartao}
+                      </p>
+
+                      <p className="comprovante-dados">
+                        <strong>Parcelas:</strong> {dadosComprovante.parcelas}x
+                      </p>
+                    </div>
+                  )}
+                </div>
+
+                <table className="comprovante-tabela">
+                  <thead>
+                    <tr>
+                      <th>Produto</th>
+                      <th>Qtd</th>
+                      <th>Valor Unitário</th>
+                      <th>Total</th>
+                    </tr>
+                  </thead>
+
+                  <tbody>
+                    {dadosComprovante.itens.map((item) => (
+                      <tr key={item.id}>
+                        <td>{item.nome}</td>
+
+                        <td>{item.quantidade}</td>
+
+                        <td>R$ {Number(item.preco).toFixed(2)}</td>
+
+                        <td>R$ {(item.preco * item.quantidade).toFixed(2)}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+
+                <div className="comprovante-total">
+                  <div className="comprovante-total-box">
+                    <h3>VALOR TOTAL</h3>
+
+                    <span>R$ {dadosComprovante.total.toFixed(2)}</span>
+                  </div>
+                </div>
+              </div>
+
+              <div className="comprovante-buttons">
+                <button
+                  onClick={() => window.print()}
+                  className="pdv-finalizar"
+                >
+                  Imprimir
+                </button>
+
+                <button onClick={baixarPDF} className="pdv-finalizar">
+                  Baixar PDF
+                </button>
+
+                <button
+                  onClick={() => setMostrarComprovante(false)}
+                  className="pdv-close-x"
+                >
+                  Fechar
+                </button>
               </div>
             </div>
           </div>

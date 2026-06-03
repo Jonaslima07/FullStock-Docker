@@ -29,9 +29,10 @@
 .titulo-produtos {
   color: #d4af37;
   font-size: 1.8rem;
-  margin: 0;
+  position: relative;
+  top: 25px;
+  right: 20px;
 }
-
 .header-produtos h2 {
   color: #d4af37;
   font-size: 1.8rem;
@@ -44,6 +45,8 @@
   display: flex;
   align-items: center;
   gap: 10px;
+  top: 20px;
+  position: relative;
 }
 
 
@@ -79,7 +82,10 @@
   align-items: center;
   justify-content: center;
   transition: 0.2s;
+  position: relative;
   font-size: 16px;
+  bottom:28px;
+  right: 10px;
 }
 
 .btn-voltar:hover {
@@ -103,6 +109,7 @@
   color: #fff;
   border: 1px solid #d4af37;
   outline: none;
+  margin-top: 20px;
 }
 
 
@@ -114,6 +121,7 @@
   border-radius: 10px;
   overflow-x: auto;
   padding: 0;
+  margin-top: 50px;
 }
 
 
@@ -260,12 +268,13 @@
 }
 
 .modal-content button:hover {
-  background: #fff;
+  background: red;
+  color: #fff;
 }
 
 .modal-close {
   position: absolute;
-  top: 10px;
+  top: 2px;
   right: 10px;
   width: 35px;
   height: 35px;
@@ -274,6 +283,9 @@
   border-radius: 6px;
   color: white;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 

@@ -1,4 +1,3 @@
-
 .pdv-container {
   min-height: 100vh;
   background: #333;
@@ -11,10 +10,17 @@
 .pdv-content {
   width: 100%;
   max-width: 1200px;
-  background: #000000;
+  background: #000;
   border-radius: 18px;
   padding: 30px;
   box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+.pdv-header {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .pdv-title {
@@ -22,6 +28,24 @@
   font-weight: 700;
   color: #ffcc00;
   margin-bottom: 25px;
+}
+
+.pdv-search-btn {
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 14px;
+  background: #111;
+  color: #ffcc00;
+  font-size: 22px;
+  cursor: pointer;
+  transition: 0.3s;
+  margin-bottom: 20px;
+}
+
+.pdv-search-btn:hover {
+  transform: scale(1.08);
+  background: #1b1b1b;
 }
 
 .pdv-input {
@@ -37,7 +61,6 @@
 
 .pdv-input:focus {
   border-color: #ffcc00;
-  
 }
 
 .pdv-empty {
@@ -144,40 +167,34 @@
   margin-bottom: 20px;
 }
 
-.pdv-select {
-  width: 250px;
+.pdv-select,
+.pdv-select-cartao,
+.pdv-select-vezes {
   padding: 14px;
   border-radius: 10px;
   border: 2px solid #d1d5db;
   font-size: 16px;
   outline: none;
   transition: 0.3s;
+}
+
+.pdv-select {
+  width: 250px;
 }
 
 .pdv-select-cartao {
   width: 250px;
-  padding: 14px;
-  border-radius: 10px;
-  border: 2px solid #d1d5db;
-  font-size: 16px;
-  outline: none;
-  transition: 0.3s;
-  position:relative;
-  left: 20px;
+  margin-left: 15px;
 }
 
 .pdv-select-vezes {
-  width: 120px;
-  padding: 14px;
-  border-radius: 10px;
-  border: 2px solid #d1d5db;
-  font-size: 16px;
-  outline: none;
-  transition: 0.3s;
-  margin-left: 40px;
+  width: 140px;
+  margin-left: 15px;
 }
 
-.pdv-select:focus {
+.pdv-select:focus,
+.pdv-select-cartao:focus,
+.pdv-select-vezes:focus {
   border-color: #2563eb;
 }
 
@@ -196,6 +213,7 @@
 
 .pdv-finalizar:hover {
   background: #15803d;
+  transform: translateY(-2px);
 }
 
 .pdv-finalizar:disabled {
@@ -203,75 +221,76 @@
   cursor: not-allowed;
 }
 
-.pdv-header {
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.pdv-search-btn {
-  width: 40px;
-  height: 40px;
-  border: none;
-  border-radius: 12px;
-  background: #000000;
-  color: #ffcc00;
-  font-size: 20px;
-  cursor: pointer;
-  transition: 0.2s;
-  margin-bottom: 40px;
-}
-
-.pdv-search-btn:hover {
-  transform: scale(1.10);
-  
-}
-
-
 .pdv-modal {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.7);
-
+  inset: 0;
+  background: rgba(0, 0, 0, 0.75);
   display: flex;
   align-items: center;
   justify-content: center;
-
   z-index: 999;
+  padding: 20px;
 }
 
 .pdv-modal-content {
   width: 95%;
   max-width: 1000px;
-  max-height: 85vh;
+  max-height: 90vh;
   overflow-y: auto;
-
   background: #1f1f1f;
   border-radius: 20px;
-  padding: 20px;
+  padding: 25px;
 }
 
 .pdv-modal-header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
+  align-items: center;
+  margin-bottom: 25px;
+}
 
-  margin-bottom: 20px;
+.pdv-modal-title {
+  font-size: 28px;
+  color: #ffcc00;
 }
 
 .pdv-close {
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border: none;
   border-radius: 10px;
-  background: red;
+  background: #ef4444;
   color: white;
   cursor: pointer;
   font-weight: bold;
+  transition: 0.3s;
+  bottom: 10px;
+  position: relative;
+}
+
+.pdv-close:hover {
+  background: #dc2626;
+}
+
+.pdv-close-x {
+  width: 50px;
+  height: 50px;
+  padding: 16px 28px;
+  border: none;
+  border-radius: 14px;
+  background: #ef4444;
+  color: white;
+  cursor: pointer;
+  font-weight: 700;
+  transition: 0.3s;
+  font-size: 16px;
+  position: relative;
+  top: 25px;
+}
+
+.pdv-close-x:hover {
+  background: #dc2626;
+  transform: translateY(-2px);
 }
 
 .pdv-produtos-lista {
@@ -281,23 +300,163 @@
 }
 
 .pdv-produto-card {
-  background: #ffffff;
-  padding: 15px;
+  background: #fff;
+  padding: 18px;
   border-radius: 15px;
-  border: 1px solid #444;
-}
-.pdv-modal-title {
-  font-size: 24px;
-  font-weight: 700;
-  color: #ffcc00;
+  border: 1px solid #000000;
 }
 
 .pdv-produto-card h3 {
   margin-bottom: 10px;
 }
 
-@media (max-width: 768px) {
+.comprovante {
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
 
+  overflow-y: auto;
+  overflow-x: hidden;
+
+  background: linear-gradient(145deg, #0f0f0f, #1b1b1b);
+  color: #fff;
+  border-radius: 24px;
+  padding: 35px;
+  border: 1px solid rgba(255, 204, 0, 0.3);
+  box-shadow:
+    0 10px 40px rgba(0, 0, 0, 0.6),
+    0 0 20px rgba(255, 204, 0, 0.12);
+}
+
+.comprovante h2 {
+  text-align: center;
+  font-size: 34px;
+  color: #ffcc00;
+  margin-bottom: 15px;
+  letter-spacing: 2px;
+  font-weight: 800;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  padding-bottom: 18px;
+}
+
+.comprovante-subtitulo {
+  text-align: center;
+  color: #ffcc00;
+  margin-top: -5px;
+  margin-bottom: 30px;
+  font-size: 14px;
+  letter-spacing: 1px;
+}
+
+.comprovante-topo {
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  margin-bottom: 25px;
+  flex-wrap: wrap;
+}
+
+.comprovante-info {
+  flex: 1;
+  min-width: 250px;
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(255,255,255,0.06);
+  padding: 20px;
+  border-radius: 18px;
+  backdrop-filter: blur(8px);
+}
+
+.comprovante-dados {
+  margin: 12px 0;
+  font-size: 15px;
+  color: #e5e7eb;
+}
+
+.comprovante-dados strong {
+  color: #ffcc00;
+}
+
+.comprovante-tabela {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 25px;
+  overflow: hidden;
+  border-radius: 16px;
+}
+
+.comprovante-tabela thead {
+  background: #ffcc00;
+  color: #000;
+}
+
+.comprovante-tabela th {
+  padding: 16px;
+  text-align: left;
+  font-size: 15px;
+  font-weight: 800;
+}
+
+.comprovante-tabela td {
+  padding: 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 15px;
+  color: #f3f4f6;
+}
+
+.comprovante-tabela tbody tr {
+  background: #181818;
+  transition: 0.3s;
+}
+
+.comprovante-tabela tbody tr:nth-child(even) {
+  background: #151515;
+}
+
+.comprovante-tabela tbody tr:hover {
+  background: #222;
+}
+
+.comprovante-total {
+  margin-top: 35px;
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 15px;
+}
+
+.comprovante-total-box {
+  background: linear-gradient(135deg, #ffcc00, #ffb300);
+  color: #000;
+  padding: 10px;
+  border-radius: 20px;
+  min-width: 180px;
+  text-align: center;
+  box-shadow: 0 8px 25px rgba(255, 204, 0, 0.25);
+}
+
+.comprovante-total-box h3 {
+  font-size: 16px;
+  margin-bottom: 12px;
+  letter-spacing: 1px;
+}
+
+.comprovante-total-box span {
+  font-size: 34px;
+  font-weight: 900;
+}
+
+.comprovante-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+.comprovante-buttons button {
+  min-width: 180px;
+}
+
+@media (max-width: 768px) {
   .pdv-content {
     padding: 20px;
   }
@@ -316,8 +475,12 @@
     width: 100%;
   }
 
-  .pdv-select {
+  .pdv-select,
+  .pdv-select-cartao,
+  .pdv-select-vezes {
     width: 100%;
+    margin-left: 0;
+    margin-top: 10px;
   }
 
   .pdv-finalizar {
@@ -326,5 +489,87 @@
 
   .pdv-total {
     font-size: 24px;
+  }
+
+  .comprovante {
+    padding: 20px;
+  }
+
+  .comprovante-topo {
+    flex-direction: column;
+  }
+
+  .comprovante h2 {
+    font-size: 24px;
+  }
+
+  .comprovante-tabela {
+    display: block;
+    overflow-x: auto;
+  }
+
+  .comprovante-total {
+    justify-content: center;
+  }
+
+  .comprovante-total-box {
+    width: 100%;
+    min-width: unset;
+  }
+
+  .comprovante-buttons button {
+    width: 100%;
+  }
+}
+
+@media print {
+  body * {
+    visibility: hidden;
+  }
+
+  .comprovante,
+  .comprovante * {
+    visibility: visible;
+  }
+
+  .comprovante {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    background: white;
+    color: black;
+    box-shadow: none;
+    border: none;
+  }
+
+  .comprovante-info {
+    background: #f5f5f5;
+    border: 1px solid #ddd;
+  }
+
+  .comprovante-dados {
+    color: black;
+  }
+
+  .comprovante-dados strong {
+    color: black;
+  }
+
+  .comprovante-tabela td {
+    color: black;
+    border-bottom: 1px solid #ccc;
+  }
+
+  .comprovante-tabela tbody tr {
+    background: white;
+  }
+
+  .comprovante-tabela tbody tr:nth-child(even) {
+    background: #f8f8f8;
+  }
+
+  .comprovante-buttons {
+    display: none;
   }
 }
