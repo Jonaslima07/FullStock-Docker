@@ -43,6 +43,7 @@ class ItensVenda(db.Model):
         return {
             "id": self.id,
             "produto_id": self.produto_id,
+            "produto_nome": self.produto.nome,
             "quantidade": self.quantidade,
             "preco_unitario": self.preco_unitario,
             "subtotal": self.subtotal

@@ -28,6 +28,8 @@
   font-weight: 700;
   color: #ffcc00;
   margin-bottom: 25px;
+  left: 150px;
+  position: relative;
 }
 
 .pdv-search-btn {
@@ -41,6 +43,8 @@
   cursor: pointer;
   transition: 0.3s;
   margin-bottom: 20px;
+  left: 250px;
+  position: relative;
 }
 
 .pdv-search-btn:hover {
@@ -110,6 +114,23 @@
   gap: 10px;
 }
 
+
+.btn-historico{
+  padding: 12px ;
+  border: none;
+  border-radius: 12px;
+  background: #ffcc00;
+  color: black;
+  font-size: 18px;
+  font-family: 'Times New Roman', Times, serif;
+  cursor: pointer;
+  margin-bottom: 18px;
+  
+}
+
+.btn-historico:hover {
+  transform: scale(1.08);
+}
 .pdv-quantity button {
   width: 35px;
   height: 35px;

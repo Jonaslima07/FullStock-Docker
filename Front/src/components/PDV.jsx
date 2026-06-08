@@ -351,14 +351,24 @@ function PDV() {
       <div className="pdv-content">
         <div className="pdv-header">
 
-           <button className="btn-voltar" onClick={() => navigate("/cadastrarprodutos")}>
-                      <FaArrowLeft />
-                    </button>
           
+          <button
+            className="btn-voltar"
+            onClick={() => navigate("/cadastrarprodutos")}
+          >
+            <FaArrowLeft />
+          </button>
+
           <h1 className="pdv-title">PDV FullStock</h1>
 
           <button className="pdv-search-btn" onClick={buscarTodosProdutos}>
             <FaSearch />
+          </button>
+          <button
+            className="btn-historico"
+            onClick={() => navigate("/historico")}
+          >
+            📋
           </button>
         </div>
 

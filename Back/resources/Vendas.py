@@ -82,26 +82,13 @@ def listar_vendas():
     resultado = []
 
     for venda in vendas:
-        resultado.append(venda.to_dict())
+        resultado.append(venda.to_dict_completo())
 
     return jsonify(resultado), 200
 
 @vendas_bp.route("/vendas/<int:id>", methods=["GET"])
 @jwt_required()
 def buscar_venda(id):
-
     venda = Vendas.query.get_or_404(id)
 
-    itens = []
-
-    for item in venda.itens:
-        itens.append({
-            "produto": item.produto.nome,
-            "quantidade": item.quantidade,
-            "subtotal": item.subtotal
-        })
-
-    return jsonify({
-        "venda": venda.to_dict(),
-        "itens": itens
-    })
+    return jsonify(venda.to_dict_completo()), 200

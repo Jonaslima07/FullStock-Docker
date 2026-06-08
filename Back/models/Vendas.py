@@ -36,11 +36,13 @@ class Vendas(db.Model):
         cascade="all, delete-orphan"
     )
 
-    def to_dict(self):
+    def to_dict_completo(self):
         return {
             "id": self.id,
-            "data": self.data.strftime("%d/%m/%Y %H:%M"),
+            "data": self.data.strftime("%d/%m/%Y"),
+            "hora": self.data.strftime("%H:%M"),
             "valor_total": self.valor_total,
             "forma_pagamento": self.forma_pagamento,
-            "usuario_id": self.usuario_id
+            "usuario_id": self.usuario_id,
+            "itens": [item.to_dict() for item in self.itens]
         }
