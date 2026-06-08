@@ -16,8 +16,30 @@ function HistoricoVendas() {
   const token = localStorage.getItem("token");
 
   useEffect(() => {
-    carregarVendas();
-  }, []);
+  if (!token) {
+    toast.error("Faça login novamente");
+    navigate("/login");
+    return;
+  }
+
+  carregarVendas();
+}, [navigate, token]);
+
+  function verificarTokenExpirado(response) {
+  if (response.status === 401 || response.status === 422) {
+    toast.error("Sessão expirada. Faça login novamente.");
+
+    localStorage.removeItem("token");
+
+    setTimeout(() => {
+      navigate("/login");
+    }, 1500);
+
+    return true;
+  }
+
+  return false;
+}
 
   async function abrirDetalhes(id) {
     try {
@@ -27,13 +49,14 @@ function HistoricoVendas() {
         },
       });
 
-      const resultado = await response.json();
+       if (verificarTokenExpirado(response)) return;
 
-      if (!response.ok) {
-        toast.error("Erro ao carregar venda");
-        return;
-      }
+const resultado = await response.json();
 
+if (!response.ok) {
+  toast.error(resultado.msg || "Erro ao carregar vendas");
+  return;
+}
       setVendaSelecionada(resultado);
       setMostrarDetalhes(true);
     } catch (error) {
@@ -51,17 +74,19 @@ function HistoricoVendas() {
 
     try {
       const response = await fetch("http://localhost:5000/vendas", {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      });
+  headers: {
+    Authorization: `Bearer ${token}`,
+  },
+});
 
-      const resultado = await response.json();
+if (verificarTokenExpirado(response)) return;
 
-      if (!response.ok) {
-        toast.error(resultado.msg || "Erro ao carregar vendas");
-        return;
-      }
+const resultado = await response.json();
+
+if (!response.ok) {
+  toast.error(resultado.msg || "Erro ao carregar vendas");
+  return;
+}
 
       setVendas(resultado);
     } catch (error) {
