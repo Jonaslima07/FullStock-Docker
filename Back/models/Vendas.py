@@ -1,5 +1,6 @@
 from helpers.database import db
 from datetime import datetime
+from zoneinfo import ZoneInfo
 
 
 class Vendas(db.Model):
@@ -9,7 +10,9 @@ class Vendas(db.Model):
 
     data = db.Column(
         db.DateTime,
-        default=datetime.utcnow,
+        default=lambda: datetime.now(
+            ZoneInfo("America/Sao_Paulo")
+        ),
         nullable=False
     )
 

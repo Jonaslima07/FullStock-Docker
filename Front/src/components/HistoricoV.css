@@ -137,7 +137,7 @@
 }
 
 .historico-btn-detalhes:hover {
-  background: #1d4ed8;
+  transform: scale(1.04);
 }
 
 .historico-btn-imprimir {
