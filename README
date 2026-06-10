@@ -1,34 +1,29 @@
-# FullStock
+# 📦 FullStock
 
-O FullStock é um sistema web desenvolvido para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque, produtos e vendas. A aplicação oferece controle operacional, monitoramento de validade de produtos, dashboard administrativo e um módulo de Ponto de Venda (PDV).
+Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
 
-# Tecnologias Utilizadas
+---
 
-## Frontend
+## 🚀 Funcionalidades
 
-* React
-* JavaScript
-* CSS
-* Fetch API
+* Cadastro de usuários
+* Login com e-mail e senha
+* Login com Google
+* Autenticação JWT
+* Cadastro de produtos
+* Controle de estoque
+* Controle de entradas e saídas
+* Dashboard administrativo
+* Pesquisa e filtragem de produtos
+* Alertas de produtos próximos ao vencimento
+* Ponto de Venda (PDV)
+* Histórico de vendas
+* Emissão e impressão de comprovantes
+* Interface responsiva
 
-## Backend
+---
 
-* Flask
-* Python
-* SQLAlchemy
-* JWT Authentication
-
-## Banco de Dados
-
-* PostgreSQL
-* Redis
-
-## Infraestrutura
-
-* Docker
-* Nginx
-
-# Arquitetura
+## 🏗 Arquitetura
 
 ```text
 Usuário
@@ -47,13 +42,61 @@ Flask API
 PostgreSQL  Redis
 ```
 
-# Pré-Requisitos
+---
 
-* Docker
-* Docker Compose
-* Git
+## 📸 Telas do Sistema
 
-# Instalação e Execução
+<p align="center">
+  <img src="./screenshots/dashboard.png" width="800"/>
+</p>
+
+<p align="center">
+  <img src="./screenshots/pdv.png" width="800"/>
+</p>
+
+<p align="center">
+  <img src="./screenshots/historico.png" width="800"/>
+</p>
+
+---
+
+## 🛠 Tecnologias Utilizadas
+
+### Frontend
+
+<div>
+    <img alt="React" title="React" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
+    <img alt="JavaScript" title="JavaScript" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
+    <img alt="HTML5" title="HTML5" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" />
+    <img alt="CSS3" title="CSS3" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" />
+</div>
+
+### Backend
+
+<div>
+    <img alt="Python" title="Python" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
+    <img alt="Flask" title="Flask" src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
+</div>
+
+### Banco de Dados
+
+<div>
+    <img alt="PostgreSQL" title="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
+    &nbsp;
+    <img alt="Redis" title="Redis" src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
+</div>
+
+### Infraestrutura
+
+<div>
+    <img alt="Docker" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
+    &nbsp;
+    <img alt="Nginx" title="Nginx" src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" />
+</div>
+
+---
+
+## 📦 Instalação e Execução
 
 Clone o repositório
 
@@ -61,7 +104,7 @@ Clone o repositório
 git clone https://github.com/Jonaslima07/FullStock-Docker.git
 ```
 
-Acesse o diretório do projeto
+Acesse o diretório
 
 ```bash
 cd FullStock-Docker
@@ -73,58 +116,24 @@ Execute os containers
 docker compose up --build
 ```
 
-Após a inicialização, a aplicação estará disponível nos endereços configurados no projeto.
+---
 
-# Funcionalidades
+## 📲 Contato
 
-* Cadastro de usuários
-* Login com e-mail e senha
-* Login com Google
-* Autenticação JWT
-* Cadastro de produtos
-* Controle de estoque
-* Controle de entradas e saídas
-* Pesquisa e filtragem de produtos
-* Dashboard administrativo
-* Alertas de produtos próximos ao vencimento
-* Ponto de Venda (PDV)
-* Histórico de vendas
-* Emissão e impressão de comprovantes
-* Interface responsiva
+<div>
+<a href="https://www.linkedin.com/in/jonas-lima-a14b0026a/" target="_blank">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="40px">
+</a>
 
-# Telas do Sistema
+  
 
-<p align="center">
-  <img src="./screenshots/home.png" width="800" />
-</p>
+<a href="mailto:jonaslimastz@gmail.com">
+<img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="40px">
+</a>
 
-<p align="center">
-  <img src="./screenshots/dashboard.png" width="800" />
-</p>
+  
 
-<p align="center">
-  <img src="./screenshots/pdv.png" width="800" />
-</p>
-
-<p align="center">
-  <img src="./screenshots/historico.png" width="800" />
-</p>
-
-# Considerações
-
-O FullStock foi desenvolvido com foco em organização, desempenho e escalabilidade, utilizando uma arquitetura baseada em containers Docker para facilitar implantação e manutenção.
-
-Entre os principais objetivos do projeto estão:
-
-* Automatizar o controle de estoque.
-* Reduzir perdas causadas por vencimento de produtos.
-* Facilitar o gerenciamento operacional de estabelecimentos comerciais.
-* Centralizar vendas e controle administrativo em uma única plataforma.
-
-# Autor
-
-Jonas Lima
-
-GitHub: https://github.com/Jonaslima07
-
-LinkedIn: https://www.linkedin.com/in/jonas-lima-a14b0026a/
+<a href="https://github.com/Jonaslima07">
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="40px">
+</a>
+</div>
