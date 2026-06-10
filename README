@@ -1,10 +1,31 @@
-# 📦 FullStock
+### FullStock
 
-Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
+O FullStock é uma aplicação web desenvolvida para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque e operações de venda. O sistema oferece controle eficiente de produtos, monitoramento de validade com alertas automáticos, gestão de movimentações e acompanhamento das atividades do negócio em tempo real.
+
+### 📋 Sobre o Projeto
+
+O objetivo do FullStock é proporcionar maior organização, segurança e eficiência operacional, reduzindo perdas causadas por vencimentos, erros de controle e falhas no gerenciamento de estoque.
+
+A aplicação conta com autenticação segura, dashboard administrativo, controle de produtos e um módulo de Ponto de Venda (PDV), permitindo que as operações do estabelecimento sejam realizadas em um único ambiente.
 
 ---
 
-## 🚀 Funcionalidades
+### ⚙️ Como Funciona
+
+O usuário pode criar uma conta utilizando e-mail e senha ou realizar o cadastro através da conta Google.
+
+Após a autenticação, o sistema direciona o usuário para o dashboard administrativo, onde é possível:
+
+* Gerenciar produtos e estoque;
+* Monitorar produtos próximos ao vencimento;
+* Realizar vendas através do módulo PDV;
+* Consultar histórico de vendas;
+* Emitir e imprimir comprovantes;
+* Acompanhar informações operacionais do estabelecimento.
+
+---
+
+### 🚀 Funcionalidades
 
 * Cadastro de usuários
 * Login com e-mail e senha
@@ -13,9 +34,9 @@ Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operac
 * Cadastro de produtos
 * Controle de estoque
 * Controle de entradas e saídas
+* Alertas de produtos próximos ao vencimento
 * Dashboard administrativo
 * Pesquisa e filtragem de produtos
-* Alertas de produtos próximos ao vencimento
 * Ponto de Venda (PDV)
 * Histórico de vendas
 * Emissão e impressão de comprovantes
@@ -23,117 +44,113 @@ Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operac
 
 ---
 
-## 🏗 Arquitetura
+
+
+### 🏗 Arquitetura do Sistema
+
+O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
 
 ```text
-Usuário
-   │
-   ▼
-React
-   │
-   ▼
-Nginx
-   │
-   ▼
-Flask API
-   │
- ┌─┴─────────┐
+┌─────────────┐
+│   Usuário   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    React    │
+│  Frontend   │
+└──────┬──────┘
+       │ HTTP/HTTPS
+       ▼
+┌─────────────┐
+│    Nginx    │
+│ Reverse Proxy │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Flask    │
+│   REST API  │
+└──────┬──────┘
+       │
+ ┌─────┴─────┐
  ▼           ▼
-PostgreSQL  Redis
+┌──────────┐ ┌─────────┐
+│PostgreSQL│ │  Redis  │
+│ Database │ │  Cache  │
+└──────────┘ └─────────┘
 ```
 
----
+### Componentes
 
-## 📸 Telas do Sistema
+**Frontend (React)**
 
-<p align="center">
-  <img src="./screenshots/dashboard.png" width="800"/>
-</p>
+* Interface do usuário.
+* Consumo da API através de requisições HTTP.
+* Controle de autenticação e navegação.
 
-<p align="center">
-  <img src="./screenshots/pdv.png" width="800"/>
-</p>
+**Nginx**
 
-<p align="center">
-  <img src="./screenshots/historico.png" width="800"/>
-</p>
+* Atua como proxy reverso.
+* Direciona as requisições para a API Flask.
+* Auxilia na entrega dos arquivos estáticos do frontend.
 
----
+**Backend (Flask)**
 
-## 🛠 Tecnologias Utilizadas
+* Regras de negócio da aplicação.
+* Controle de autenticação JWT.
+* Gerenciamento de produtos, estoque, vendas e usuários.
+
+**PostgreSQL**
+
+* Armazenamento persistente dos dados do sistema.
+* Registro de usuários, produtos, movimentações e vendas.
+
+**Redis**
+
+* Cache de dados e otimização de desempenho.
+* Redução da carga sobre o banco de dados.
+
+**Docker**
+
+* Containerização de todos os serviços.
+* Facilidade de implantação e padronização do ambiente.
+
+
+### 🛠 Tecnologias Utilizadas
 
 ### Frontend
 
-<div>
-    <img alt="React" title="React" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg" />
-    <img alt="JavaScript" title="JavaScript" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" />
-    <img alt="HTML5" title="HTML5" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" />
-    <img alt="CSS3" title="CSS3" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" />
-</div>
+* React
+* JavaScript
+* CSS
+* Fetch API
 
 ### Backend
 
-<div>
-    <img alt="Python" title="Python" width="40px" src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" />
-    <img alt="Flask" title="Flask" src="https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white" />
-</div>
+* Flask
+* Python
+* SQLAlchemy
+* JWT Authentication
 
 ### Banco de Dados
 
-<div>
-    <img alt="PostgreSQL" title="PostgreSQL" src="https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white" />
-    &nbsp;
-    <img alt="Redis" title="Redis" src="https://img.shields.io/badge/Redis-DC382D?style=for-the-badge&logo=redis&logoColor=white" />
-</div>
+* PostgreSQL
 
-### Infraestrutura
+### Infraestrutura e Ferramentas
 
-<div>
-    <img alt="Docker" title="Docker" src="https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white" />
-    &nbsp;
-    <img alt="Nginx" title="Nginx" src="https://img.shields.io/badge/Nginx-009639?style=for-the-badge&logo=nginx&logoColor=white" />
-</div>
+* Docker
+* Nginx
+* Git
+* GitHub
 
 ---
 
-## 📦 Instalação e Execução
+### 📦 Instalação e Execução
 
-Clone o repositório
+### Clone o repositório
 
-```bash
+``` bash
 git clone https://github.com/Jonaslima07/FullStock-Docker.git
+
 ```
-
-Acesse o diretório
-
-```bash
-cd FullStock-Docker
-```
-
-Execute os containers
-
-```bash
-docker compose up --build
-```
-
----
-
-## 📲 Contato
-
-<div>
-<a href="https://www.linkedin.com/in/jonas-lima-a14b0026a/" target="_blank">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/linkedin/linkedin-original.svg" width="40px">
-</a>
-
-  
-
-<a href="mailto:jonaslimastz@gmail.com">
-<img src="https://cdn-icons-png.flaticon.com/512/732/732200.png" width="40px">
-</a>
-
-  
-
-<a href="https://github.com/Jonaslima07">
-<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/github/github-original.svg" width="40px">
-</a>
-</div>
