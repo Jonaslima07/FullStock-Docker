@@ -1,49 +1,148 @@
 # FullStock
 
-O FullStock foi desenvolvido para oferecer uma solução eficiente para gerenciamento de estoque em mercados e estabelecimentos comerciais, proporcionando maior controle operacional, monitoramento da validade dos produtos com alertas automáticos para garantir mais segurança e qualidade, além da organização de produtos e acompanhamento das movimentações do sistema.
+O FullStock é uma aplicação web desenvolvida para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque e operações de venda. O sistema oferece controle eficiente de produtos, monitoramento de validade com alertas automáticos, gestão de movimentações e acompanhamento das atividades do negócio em tempo real.
+
+## 📋 Sobre o Projeto
+
+O objetivo do FullStock é proporcionar maior organização, segurança e eficiência operacional, reduzindo perdas causadas por vencimentos, erros de controle e falhas no gerenciamento de estoque.
+
+A aplicação conta com autenticação segura, dashboard administrativo, controle de produtos e um módulo de Ponto de Venda (PDV), permitindo que as operações do estabelecimento sejam realizadas em um único ambiente.
 
 ---
 
-## Como Funciona
+## ⚙️ Como Funciona
 
+O usuário pode criar uma conta utilizando e-mail e senha ou realizar o cadastro através da conta Google.
 
+Após a autenticação, o sistema direciona o usuário para o dashboard administrativo, onde é possível:
+
+* Gerenciar produtos e estoque;
+* Monitorar produtos próximos ao vencimento;
+* Realizar vendas através do módulo PDV;
+* Consultar histórico de vendas;
+* Emitir e imprimir comprovantes;
+* Acompanhar informações operacionais do estabelecimento.
+
+---
 
 ## 🚀 Funcionalidades
 
-- Cadastro de produtos
-- Controle de estoque
-- Controle de entradas e saídas
-- Dashboard administrativo
-- Sistema de autenticação JWT
-- Gerenciamento de usuários
-- Pesquisa e filtragem de produtos
-- Interface responsiva
-
+* Cadastro de usuários
+* Login com e-mail e senha
+* Login com Google
+* Autenticação JWT
+* Cadastro de produtos
+* Controle de estoque
+* Controle de entradas e saídas
+* Alertas de produtos próximos ao vencimento
+* Dashboard administrativo
+* Pesquisa e filtragem de produtos
+* Ponto de Venda (PDV)
+* Histórico de vendas
+* Emissão e impressão de comprovantes
+* Interface responsiva
 
 ---
+
+
+
+## 🏗 Arquitetura do Sistema
+
+O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
+
+```text
+┌─────────────┐
+│   Usuário   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    React    │
+│  Frontend   │
+└──────┬──────┘
+       │ HTTP/HTTPS
+       ▼
+┌─────────────┐
+│    Nginx    │
+│ Reverse Proxy │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Flask    │
+│   REST API  │
+└──────┬──────┘
+       │
+ ┌─────┴─────┐
+ ▼           ▼
+┌──────────┐ ┌─────────┐
+│PostgreSQL│ │  Redis  │
+│ Database │ │  Cache  │
+└──────────┘ └─────────┘
+```
+
+### Componentes
+
+**Frontend (React)**
+
+* Interface do usuário.
+* Consumo da API através de requisições HTTP.
+* Controle de autenticação e navegação.
+
+**Nginx**
+
+* Atua como proxy reverso.
+* Direciona as requisições para a API Flask.
+* Auxilia na entrega dos arquivos estáticos do frontend.
+
+**Backend (Flask)**
+
+* Regras de negócio da aplicação.
+* Controle de autenticação JWT.
+* Gerenciamento de produtos, estoque, vendas e usuários.
+
+**PostgreSQL**
+
+* Armazenamento persistente dos dados do sistema.
+* Registro de usuários, produtos, movimentações e vendas.
+
+**Redis**
+
+* Cache de dados e otimização de desempenho.
+* Redução da carga sobre o banco de dados.
+
+**Docker**
+
+* Containerização de todos os serviços.
+* Facilidade de implantação e padronização do ambiente.
+
 
 ## 🛠 Tecnologias Utilizadas
 
 ### Frontend
-- React
-- JavaScript
-- CSS
-- Fetch
+
+* React
+* JavaScript
+* CSS
+* Fetch API
 
 ### Backend
-- Flask
-- Python
-- JWT Authentication
-- SQLAlchemy
+
+* Flask
+* Python
+* SQLAlchemy
+* JWT Authentication
 
 ### Banco de Dados
-- MySQL
 
-### Ferramentas
-- Docker
-- Git
-- GitHub
-- Nginx
+* PostgreSQL
+
+### Infraestrutura e Ferramentas
+
+* Docker
+* Nginx
+* Git
+* GitHub
 
 ---
 
@@ -52,4 +151,5 @@ O FullStock foi desenvolvido para oferecer uma solução eficiente para gerencia
 ### Clone o repositório
 
 ```bash
-git clone URL_DO_REPOSITORIO
+git clone https://github.com/Jonaslima07/FullStock-Docker.git
+```
