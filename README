@@ -45,7 +45,49 @@ Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operac
 * Docker
 * Nginx
 
-## Arquitetura
+## Pré-Requisitos
+
+* Docker
+* Docker Compose
+* Git
+
+## Etapa 1
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Jonaslima07/FullStock-Docker.git
+```
+
+## Etapa 2
+
+Acesse o diretório do projeto:
+
+```bash
+cd FullStock-Docker
+```
+
+## Etapa 3
+
+Execute os containers:
+
+```bash
+docker compose up --build
+```
+
+## Etapa 4
+
+Verifique se os containers estão em execução:
+
+```bash
+docker ps
+```
+
+## Etapa 5
+
+Acesse a aplicação através da URL configurada no projeto.
+
+## Arquitetura do Sistema
 
 ```text
 Usuário
@@ -64,79 +106,15 @@ Flask API
 PostgreSQL  Redis
 ```
 
-## Instalação e Execução
-
-### Etapa 1
-
-Clone o repositório:
-
-```bash
-git clone https://github.com/Jonaslima07/FullStock-Docker.git
-```
-
-### Etapa 2
-
-Acesse o diretório do projeto:
-
-```bash
-cd FullStock-Docker
-```
-
-### Etapa 3
-
-Execute os containers:
-
-```bash
-docker compose up --build
-```
-
-### Etapa 4
-
-Verifique se todos os containers estão em execução:
-
-```bash
-docker ps
-```
-
-### Etapa 5
-
-Acesse a aplicação pelo navegador utilizando a URL configurada no projeto.
-
-## Estrutura dos Serviços
-
-### Frontend
-
-* Responsável pela interface do usuário.
-* Desenvolvido com React.
-* Comunicação com a API através de requisições HTTP.
-
-### Backend
-
-* Desenvolvido com Flask.
-* Responsável pelas regras de negócio.
-* Gerenciamento de autenticação JWT.
-* Integração com PostgreSQL e Redis.
-
-### PostgreSQL
-
-* Armazenamento persistente dos dados.
-* Controle de usuários, produtos, estoque e vendas.
-
-### Redis
-
-* Cache de dados.
-* Otimização de desempenho da aplicação.
-
-### Nginx
-
-* Proxy reverso.
-* Roteamento das requisições para a API.
-
 ## Telas do Sistema
 
 ### Dashboard
 
 ![Dashboard](screenshots/dashboard.png)
+
+### Cadastro de Produtos
+
+![Cadastro](screenshots/produtos.png)
 
 ### PDV
 
@@ -146,17 +124,22 @@ Acesse a aplicação pelo navegador utilizando a URL configurada no projeto.
 
 ![Histórico](screenshots/historico.png)
 
-### Cadastro de Produtos
+## Considerações
 
-![Produtos](screenshots/produtos.png)
+O FullStock foi desenvolvido com foco em organização, desempenho e escalabilidade, utilizando Docker para facilitar a implantação dos serviços.
 
-## Repositório
+Entre os principais objetivos do sistema estão:
 
-* GitHub: https://github.com/Jonaslima07/FullStock-Docker
+* Automatizar o controle de estoque.
+* Facilitar o gerenciamento de vendas.
+* Centralizar operações administrativas.
+* Reduzir perdas causadas por produtos vencidos.
+* Melhorar o controle operacional dos estabelecimentos.
 
 ## Autor
 
 Jonas Lima
 
-* GitHub: https://github.com/Jonaslima07
-* LinkedIn: https://www.linkedin.com/in/jonas-lima-a14b0026a/
+GitHub: https://github.com/Jonaslima07
+
+LinkedIn: https://www.linkedin.com/in/jonas-lima-a14b0026a/
