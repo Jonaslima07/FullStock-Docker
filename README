@@ -2,7 +2,34 @@
 
 Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
 
+<<<<<<< HEAD
 ## Funcionalidades
+=======
+## 📋 Sobre o Projeto
+
+O objetivo do FullStock é proporcionar maior organização, segurança e eficiência operacional, reduzindo perdas causadas por vencimentos, erros de controle e falhas no gerenciamento de estoque.
+
+A aplicação conta com autenticação segura, dashboard administrativo, controle de produtos e um módulo de Ponto de Venda (PDV), permitindo que as operações do estabelecimento sejam realizadas em um único ambiente.
+
+---
+
+## ⚙️ Como Funciona
+
+O usuário pode criar uma conta utilizando e-mail e senha ou realizar o cadastro através da conta Google.
+
+Após a autenticação, o sistema direciona o usuário para o dashboard administrativo, onde é possível:
+
+* Gerenciar produtos e estoque;
+* Monitorar produtos próximos ao vencimento;
+* Realizar vendas através do módulo PDV;
+* Consultar histórico de vendas;
+* Emitir e imprimir comprovantes;
+* Acompanhar informações operacionais do estabelecimento.
+
+---
+
+## 🚀 Funcionalidades
+>>>>>>> aceb61f (feat:final)
 
 * Cadastro de usuários
 * Login com e-mail e senha
@@ -19,7 +46,86 @@ Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operac
 * Emissão e impressão de comprovantes
 * Interface responsiva
 
+<<<<<<< HEAD
 ## Tecnologias Utilizadas
+=======
+---
+
+
+
+## 🏗 Arquitetura do Sistema
+
+O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
+
+```
+┌─────────────┐
+│   Usuário   │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    React    │
+│  Frontend   │
+└──────┬──────┘
+       │ HTTP/HTTPS
+       ▼
+┌─────────────┐
+│    Nginx    │
+│ Reverse Proxy │
+└──────┬──────┘
+       │
+       ▼
+┌─────────────┐
+│    Flask    │
+│   REST API  │
+└──────┬──────┘
+       │
+ ┌─────┴─────┐
+ ▼           ▼
+┌──────────┐ ┌─────────┐
+│PostgreSQL│ │  Redis  │
+│ Database │ │  Cache  │
+└──────────┘ └─────────┘
+```
+
+### Componentes
+
+**Frontend (React)**
+
+* Interface do usuário.
+* Consumo da API através de requisições HTTP.
+* Controle de autenticação e navegação.
+
+**Nginx**
+
+* Atua como proxy reverso.
+* Direciona as requisições para a API Flask.
+* Auxilia na entrega dos arquivos estáticos do frontend.
+
+**Backend (Flask)**
+
+* Regras de negócio da aplicação.
+* Controle de autenticação JWT.
+* Gerenciamento de produtos, estoque, vendas e usuários.
+
+**PostgreSQL**
+
+* Armazenamento persistente dos dados do sistema.
+* Registro de usuários, produtos, movimentações e vendas.
+
+**Redis**
+
+* Cache de dados e otimização de desempenho.
+* Redução da carga sobre o banco de dados.
+
+**Docker**
+
+* Containerização de todos os serviços.
+* Facilidade de implantação e padronização do ambiente.
+
+
+## 🛠 Tecnologias Utilizadas
+>>>>>>> aceb61f (feat:final)
 
 ### Frontend
 
@@ -53,8 +159,15 @@ Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operac
 
 ## Etapa 1
 
+<<<<<<< HEAD
 Clone o repositório:
 
+=======
+## 📦 Instalação e Execução
+
+### Clone o repositório
+
+>>>>>>> aceb61f (feat:final)
 ```bash
 git clone https://github.com/Jonaslima07/FullStock-Docker.git
 ```
