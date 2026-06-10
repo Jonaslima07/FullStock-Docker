@@ -1,31 +1,8 @@
-### FullStock
+# FullStock
 
-O FullStock é uma aplicação web desenvolvida para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque e operações de venda. O sistema oferece controle eficiente de produtos, monitoramento de validade com alertas automáticos, gestão de movimentações e acompanhamento das atividades do negócio em tempo real.
+Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
 
-### 📋 Sobre o Projeto
-
-O objetivo do FullStock é proporcionar maior organização, segurança e eficiência operacional, reduzindo perdas causadas por vencimentos, erros de controle e falhas no gerenciamento de estoque.
-
-A aplicação conta com autenticação segura, dashboard administrativo, controle de produtos e um módulo de Ponto de Venda (PDV), permitindo que as operações do estabelecimento sejam realizadas em um único ambiente.
-
----
-
-### ⚙️ Como Funciona
-
-O usuário pode criar uma conta utilizando e-mail e senha ou realizar o cadastro através da conta Google.
-
-Após a autenticação, o sistema direciona o usuário para o dashboard administrativo, onde é possível:
-
-* Gerenciar produtos e estoque;
-* Monitorar produtos próximos ao vencimento;
-* Realizar vendas através do módulo PDV;
-* Consultar histórico de vendas;
-* Emitir e imprimir comprovantes;
-* Acompanhar informações operacionais do estabelecimento.
-
----
-
-### 🚀 Funcionalidades
+## Funcionalidades
 
 * Cadastro de usuários
 * Login com e-mail e senha
@@ -34,90 +11,15 @@ Após a autenticação, o sistema direciona o usuário para o dashboard administ
 * Cadastro de produtos
 * Controle de estoque
 * Controle de entradas e saídas
-* Alertas de produtos próximos ao vencimento
 * Dashboard administrativo
 * Pesquisa e filtragem de produtos
+* Alertas de produtos próximos ao vencimento
 * Ponto de Venda (PDV)
 * Histórico de vendas
 * Emissão e impressão de comprovantes
 * Interface responsiva
 
----
-
-
-
-### 🏗 Arquitetura do Sistema
-
-O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
-
-```
-┌─────────────┐
-│   Usuário   │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│    React    │
-│  Frontend   │
-└──────┬──────┘
-       │ HTTP/HTTPS
-       ▼
-┌─────────────┐
-│    Nginx    │
-│ Reverse Proxy │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│    Flask    │
-│   REST API  │
-└──────┬──────┘
-       │
- ┌─────┴─────┐
- ▼           ▼
-┌──────────┐ ┌─────────┐
-│PostgreSQL│ │  Redis  │
-│ Database │ │  Cache  │
-└──────────┘ └─────────┘
-```
-
-### Componentes
-
-**Frontend (React)**
-
-* Interface do usuário.
-* Consumo da API através de requisições HTTP.
-* Controle de autenticação e navegação.
-
-**Nginx**
-
-* Atua como proxy reverso.
-* Direciona as requisições para a API Flask.
-* Auxilia na entrega dos arquivos estáticos do frontend.
-
-**Backend (Flask)**
-
-* Regras de negócio da aplicação.
-* Controle de autenticação JWT.
-* Gerenciamento de produtos, estoque, vendas e usuários.
-
-**PostgreSQL**
-
-* Armazenamento persistente dos dados do sistema.
-* Registro de usuários, produtos, movimentações e vendas.
-
-**Redis**
-
-* Cache de dados e otimização de desempenho.
-* Redução da carga sobre o banco de dados.
-
-**Docker**
-
-* Containerização de todos os serviços.
-* Facilidade de implantação e padronização do ambiente.
-
-
-### 🛠 Tecnologias Utilizadas
+## Tecnologias Utilizadas
 
 ### Frontend
 
@@ -136,21 +38,125 @@ O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separand
 ### Banco de Dados
 
 * PostgreSQL
+* Redis
 
-### Infraestrutura e Ferramentas
+### Infraestrutura
 
 * Docker
 * Nginx
-* Git
-* GitHub
 
----
+## Arquitetura
 
-### 📦 Instalação e Execução
-
-### Clone o repositório
-
-``` bash
-git clone https://github.com/Jonaslima07/FullStock-Docker.git
-
+```text
+Usuário
+   │
+   ▼
+React
+   │
+   ▼
+Nginx
+   │
+   ▼
+Flask API
+   │
+ ┌─┴─────────┐
+ ▼           ▼
+PostgreSQL  Redis
 ```
+
+## Instalação e Execução
+
+### Etapa 1
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Jonaslima07/FullStock-Docker.git
+```
+
+### Etapa 2
+
+Acesse o diretório do projeto:
+
+```bash
+cd FullStock-Docker
+```
+
+### Etapa 3
+
+Execute os containers:
+
+```bash
+docker compose up --build
+```
+
+### Etapa 4
+
+Verifique se todos os containers estão em execução:
+
+```bash
+docker ps
+```
+
+### Etapa 5
+
+Acesse a aplicação pelo navegador utilizando a URL configurada no projeto.
+
+## Estrutura dos Serviços
+
+### Frontend
+
+* Responsável pela interface do usuário.
+* Desenvolvido com React.
+* Comunicação com a API através de requisições HTTP.
+
+### Backend
+
+* Desenvolvido com Flask.
+* Responsável pelas regras de negócio.
+* Gerenciamento de autenticação JWT.
+* Integração com PostgreSQL e Redis.
+
+### PostgreSQL
+
+* Armazenamento persistente dos dados.
+* Controle de usuários, produtos, estoque e vendas.
+
+### Redis
+
+* Cache de dados.
+* Otimização de desempenho da aplicação.
+
+### Nginx
+
+* Proxy reverso.
+* Roteamento das requisições para a API.
+
+## Telas do Sistema
+
+### Dashboard
+
+![Dashboard](screenshots/dashboard.png)
+
+### PDV
+
+![PDV](screenshots/pdv.png)
+
+### Histórico de Vendas
+
+![Histórico](screenshots/historico.png)
+
+### Cadastro de Produtos
+
+![Produtos](screenshots/produtos.png)
+
+## Repositório
+
+* GitHub: https://github.com/Jonaslima07/FullStock-Docker
+
+## Autor
+
+Jonas Lima
+
+* GitHub: https://github.com/Jonaslima07
+* LinkedIn: https://www.linkedin.com/in/jonas-lima-a14b0026a/
