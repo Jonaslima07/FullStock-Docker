@@ -1,121 +1,86 @@
-# FullStock
+# 📦 FullStock
 
-O FullStock é uma aplicação web desenvolvida para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque e operações de venda. O sistema oferece controle eficiente de produtos, monitoramento de validade com alertas automáticos, gestão de movimentações e acompanhamento das atividades do negócio em tempo real.
+Sistema web para gestão de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
 
-## 📋 Sobre o Projeto
-
-O objetivo do FullStock é proporcionar maior organização, segurança e eficiência operacional, reduzindo perdas causadas por vencimentos, erros de controle e falhas no gerenciamento de estoque.
-
-A aplicação conta com autenticação segura, dashboard administrativo, controle de produtos e um módulo de Ponto de Venda (PDV), permitindo que as operações do estabelecimento sejam realizadas em um único ambiente.
+![React](https://img.shields.io/badge/React-61DAFB?logo=react\&logoColor=white)
+![Flask](https://img.shields.io/badge/Flask-000000?logo=flask\&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-4169E1?logo=postgresql\&logoColor=white)
+![Redis](https://img.shields.io/badge/Redis-DC382D?logo=redis\&logoColor=white)
+![Docker](https://img.shields.io/badge/Docker-2496ED?logo=docker\&logoColor=white)
+![Nginx](https://img.shields.io/badge/Nginx-009639?logo=nginx\&logoColor=white)
 
 ---
 
-## ⚙️ Como Funciona
+## 📸 Demonstração
 
-O usuário pode criar uma conta utilizando e-mail e senha ou realizar o cadastro através da conta Google.
+### Dashboard
 
-Após a autenticação, o sistema direciona o usuário para o dashboard administrativo, onde é possível:
+<img src="./screenshots/dashboard.png" width="900"/>
 
-* Gerenciar produtos e estoque;
-* Monitorar produtos próximos ao vencimento;
-* Realizar vendas através do módulo PDV;
-* Consultar histórico de vendas;
-* Emitir e imprimir comprovantes;
-* Acompanhar informações operacionais do estabelecimento.
+### PDV
+
+<img src="./screenshots/pdv.png" width="900"/>
+
+### Controle de Estoque
+
+<img src="./screenshots/estoque.png" width="900"/>
+
+---
+
+## 📋 Sobre o Projeto
+
+O FullStock é uma aplicação web desenvolvida para auxiliar mercados, mercearias e estabelecimentos comerciais no gerenciamento de estoque e operações de venda.
+
+O sistema oferece:
+
+* Controle de estoque
+* Cadastro de produtos
+* Controle de entradas e saídas
+* Histórico de vendas
+* Emissão de comprovantes
+* Dashboard administrativo
+* Alertas de validade de produtos
+* Autenticação segura via JWT
+* Login com Google
 
 ---
 
 ## 🚀 Funcionalidades
 
-* Cadastro de usuários
-* Login com e-mail e senha
-* Login com Google
-* Autenticação JWT
-* Cadastro de produtos
-* Controle de estoque
-* Controle de entradas e saídas
-* Alertas de produtos próximos ao vencimento
-* Dashboard administrativo
-* Pesquisa e filtragem de produtos
-* Ponto de Venda (PDV)
-* Histórico de vendas
-* Emissão e impressão de comprovantes
-* Interface responsiva
+| Funcionalidade       | Descrição                           |
+| -------------------- | ----------------------------------- |
+| Cadastro de Produtos | Gerenciamento completo dos produtos |
+| Controle de Estoque  | Entradas, saídas e monitoramento    |
+| Dashboard            | Indicadores administrativos         |
+| PDV                  | Registro de vendas                  |
+| Histórico de Vendas  | Consulta de movimentações           |
+| Comprovantes         | Emissão e impressão                 |
+| JWT                  | Autenticação segura                 |
+| Google Login         | Login social                        |
+| Alertas              | Controle de validade                |
 
 ---
 
-
-
-## 🏗 Arquitetura do Sistema
-
-O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
+## 🏗 Arquitetura
 
 ```text
-┌─────────────┐
-│   Usuário   │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│    React    │
-│  Frontend   │
-└──────┬──────┘
-       │ HTTP/HTTPS
-       ▼
-┌─────────────┐
-│    Nginx    │
-│ Reverse Proxy │
-└──────┬──────┘
-       │
-       ▼
-┌─────────────┐
-│    Flask    │
-│   REST API  │
-└──────┬──────┘
-       │
- ┌─────┴─────┐
+Usuário
+   │
+   ▼
+React
+   │
+   ▼
+Nginx
+   │
+   ▼
+Flask API
+   │
+ ┌─┴─────────┐
  ▼           ▼
-┌──────────┐ ┌─────────┐
-│PostgreSQL│ │  Redis  │
-│ Database │ │  Cache  │
-└──────────┘ └─────────┘
+PostgreSQL  Redis
 ```
 
-### Componentes
-
-**Frontend (React)**
-
-* Interface do usuário.
-* Consumo da API através de requisições HTTP.
-* Controle de autenticação e navegação.
-
-**Nginx**
-
-* Atua como proxy reverso.
-* Direciona as requisições para a API Flask.
-* Auxilia na entrega dos arquivos estáticos do frontend.
-
-**Backend (Flask)**
-
-* Regras de negócio da aplicação.
-* Controle de autenticação JWT.
-* Gerenciamento de produtos, estoque, vendas e usuários.
-
-**PostgreSQL**
-
-* Armazenamento persistente dos dados do sistema.
-* Registro de usuários, produtos, movimentações e vendas.
-
-**Redis**
-
-* Cache de dados e otimização de desempenho.
-* Redução da carga sobre o banco de dados.
-
-**Docker**
-
-* Containerização de todos os serviços.
-* Facilidade de implantação e padronização do ambiente.
-
+---
 
 ## 🛠 Tecnologias Utilizadas
 
@@ -137,19 +102,32 @@ O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separand
 
 * PostgreSQL
 
-### Infraestrutura e Ferramentas
+### Infraestrutura
 
 * Docker
 * Nginx
+* Redis
+
+### Versionamento
+
 * Git
 * GitHub
 
 ---
 
-## 📦 Instalação e Execução
-
-### Clone o repositório
+## 📦 Instalação
 
 ```bash
 git clone https://github.com/Jonaslima07/FullStock-Docker.git
+
+cd FullStock-Docker
 ```
+
+---
+
+## 👨‍💻 Autor
+
+Jonas Lima
+
+* LinkedIn: [www.linkedin.com/in/jonas-lima-a14b0026a](http://www.linkedin.com/in/jonas-lima-a14b0026a)
+* GitHub: github.com/Jonaslima07
