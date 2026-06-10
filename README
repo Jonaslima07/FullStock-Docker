@@ -50,7 +50,7 @@ Após a autenticação, o sistema direciona o usuário para o dashboard administ
 
 O FullStock foi desenvolvido seguindo uma arquitetura cliente-servidor, separando as responsabilidades entre frontend, backend, banco de dados e infraestrutura.
 
-```text
+```
 ┌─────────────┐
 │   Usuário   │
 └──────┬──────┘
