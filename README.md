@@ -1,0 +1,128 @@
+# FullStock
+
+Sistema web desenvolvido para gerenciamento de estoque, vendas e controle operacional de mercados e estabelecimentos comerciais.
+
+## Funcionalidades
+
+* Cadastro de usuários
+* Login com e-mail e senha
+* Login com Google
+* Autenticação JWT
+* Cadastro de produtos
+* Controle de estoque
+* Controle de entradas e saídas
+* Dashboard administrativo
+* Pesquisa e filtragem de produtos
+* Alertas de produtos próximos ao vencimento
+* Ponto de Venda (PDV)
+* Histórico de vendas
+* Emissão e impressão de comprovantes
+* Interface responsiva
+
+## Tecnologias Utilizadas
+
+### Frontend
+
+* React
+* JavaScript
+* CSS
+* Fetch API
+
+### Backend
+
+* Flask
+* Python
+* SQLAlchemy
+* JWT Authentication
+
+### Banco de Dados
+
+* PostgreSQL
+* Redis
+
+### Infraestrutura
+
+* Docker
+* Nginx
+
+## Pré-Requisitos
+
+* Docker
+* Docker Compose
+* Git
+
+## Etapa 1
+
+Clone o repositório:
+
+```bash
+git clone https://github.com/Jonaslima07/FullStock-Docker.git
+```
+
+## Etapa 2
+
+Acesse o diretório do projeto:
+
+```bash
+cd FullStock-Docker
+```
+
+## Etapa 3
+
+Execute os containers:
+
+```bash
+docker compose up --build
+```
+
+## Etapa 4
+
+Verifique se os containers estão em execução:
+
+```bash
+docker ps
+```
+
+## Etapa 5
+
+Acesse a aplicação através da URL configurada no projeto.
+
+## Arquitetura do Sistema
+
+```text
+Usuário
+   │
+   ▼
+React
+   │
+   ▼
+Nginx
+   │
+   ▼
+Flask API
+   │
+ ┌─┴─────────┐
+ ▼           ▼
+PostgreSQL  Redis
+```
+
+
+## Considerações
+
+O FullStock foi desenvolvido com foco em organização, desempenho e escalabilidade, utilizando Docker para facilitar a implantação dos serviços.
+
+Entre os principais objetivos do sistema estão:
+
+* Automatizar o controle de estoque.
+* Facilitar o gerenciamento de vendas.
+* Centralizar operações administrativas.
+* Reduzir perdas causadas por produtos vencidos.
+* Melhorar o controle operacional dos estabelecimentos.
+
+## Autor
+
+Jonas Lima
+
+GitHub: https://github.com/Jonaslima07
+
+LinkedIn: https://www.linkedin.com/in/jonas-lima-a14b0026a/
