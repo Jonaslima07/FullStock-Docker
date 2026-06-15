@@ -64,6 +64,7 @@ def criar_venda():
         db.session.add(item_venda)
 
     venda.valor_total = valor_total
+    
 
     db.session.commit()
 
@@ -92,3 +93,13 @@ def buscar_venda(id):
     venda = Vendas.query.get_or_404(id)
 
     return jsonify(venda.to_dict_completo()), 200
+
+@vendas_bp.route("/teste-hora") #remover depois do teste
+def teste_hora():
+    venda = Vendas.query.order_by(Vendas.id.desc()).first()
+
+    return {
+        "data_raw": str(venda.data),
+        "tzinfo": str(venda.data.tzinfo),
+        "hora": venda.data.strftime("%H:%M")
+    }

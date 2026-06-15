@@ -9,7 +9,7 @@ class Vendas(db.Model):
     id = db.Column(db.Integer, primary_key=True)
 
     data = db.Column(
-        db.DateTime,
+        db.DateTime(timezone=True),
         default=lambda: datetime.now(
             ZoneInfo("America/Sao_Paulo")
         ),
@@ -40,10 +40,15 @@ class Vendas(db.Model):
     )
 
     def to_dict_completo(self):
+
+        data_sp = self.data.astimezone(
+            ZoneInfo("America/Sao_Paulo")
+        )
+
         return {
             "id": self.id,
-            "data": self.data.strftime("%d/%m/%Y"),
-            "hora": self.data.strftime("%H:%M"),
+            "data": data_sp.strftime("%d/%m/%Y"),
+            "hora": data_sp.strftime("%H:%M"),
             "valor_total": self.valor_total,
             "forma_pagamento": self.forma_pagamento,
             "usuario_id": self.usuario_id,

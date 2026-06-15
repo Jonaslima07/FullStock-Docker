@@ -7,6 +7,8 @@ services:
       POSTGRES_USER: postgres
       POSTGRES_PASSWORD: 1234
       POSTGRES_DB: bancofull
+      TZ: America/Sao_Paulo
+      PGTZ: America/Sao_Paulo
     volumes:
       - postgres_data:/var/lib/postgresql/data
     ports:
@@ -16,6 +18,8 @@ services:
     image: redis:7
 
   backend:
+    environment:
+      - TZ=America/Sao_Paulo
     build: ./Back
     ports:
       - "5000:5000"
