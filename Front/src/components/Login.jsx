@@ -16,10 +16,12 @@ const Login = () => {
 
   function handleChange(e) {
     const { name, value } = e.target;
-    setForm({ ...form, [name]: value });
+    setForm((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
   }
 
-  // 🔐 LOGIN NORMAL
   async function handleSubmit(e) {
     e.preventDefault();
 
@@ -44,29 +46,38 @@ const Login = () => {
 
       const data = await response.json();
 
+      
+
       if (!response.ok) {
         throw new Error(data.error || "Erro no login");
+      }
+
+      if (!data.access_token) {
+        console.error("Token não recebido:", data);
+        throw new Error("Token não recebido do servidor");
       }
 
       localStorage.setItem("token", data.access_token);
       localStorage.setItem("user", JSON.stringify(data.user));
 
+      console.log("TOKEN SALVO:", localStorage.getItem("token"));
+      console.log("RESPOSTA GOOGLE:", data);
+
       toast.success("Login realizado com sucesso 🎉");
 
-      if (data.user.cadastro_completo) {
+      if (data.user?.cadastro_completo) {
         navigate("/dashboard");
       } else {
         navigate("/completar-cadastro");
       }
-
     } catch (error) {
+      console.error(error);
       toast.error(error.message);
     } finally {
       setLoading(false);
     }
   }
 
-  // 🔵 LOGIN COM GOOGLE
   async function handleGoogleLogin() {
     try {
       const result = await signInWithPopup(auth, provider);
@@ -82,8 +93,14 @@ const Login = () => {
 
       const data = await response.json();
 
+      console.log("RESPOSTA GOOGLE:", data);
+
       if (!response.ok) {
         throw new Error(data.error || "Erro no login Google");
+      }
+
+      if (!data.access_token) {
+        throw new Error("Token não recebido do servidor");
       }
 
       localStorage.setItem("token", data.access_token);
@@ -91,15 +108,14 @@ const Login = () => {
 
       toast.success("Login com Google realizado 🎉");
 
-      if (data.user.cadastro_completo) {
+      if (data.user?.cadastro_completo) {
         navigate("/dashboard");
       } else {
         navigate("/completar-cadastro");
       }
-
     } catch (error) {
       console.error(error);
-      toast.error("Erro ao fazer login com Google");
+      toast.error(error.message);
     }
   }
 

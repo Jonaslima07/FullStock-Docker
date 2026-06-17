@@ -16,13 +16,14 @@ const CompletarCadastro = () => {
     const token = localStorage.getItem("token");
     const storedUser = localStorage.getItem("user");
 
+    console.log("TOKEN RECEBIDO:", token);
+    console.log("USER RECEBIDO:", storedUser);
+
     if (!token || !storedUser) {
       toast.error("Sessão expirada. Faça login novamente.");
       navigate("/login");
       return;
     }
-
-
 
     const user = JSON.parse(storedUser);
 
@@ -43,6 +44,12 @@ const CompletarCadastro = () => {
 
     const token = localStorage.getItem("token");
 
+    if (!token) {
+      toast.error("Sessão inválida. Faça login novamente.");
+      navigate("/login");
+      return;
+    }
+
     if (!form.cpf || !form.senha || !form.confirmarSenha) {
       toast.error("Preencha todos os campos");
       return;
@@ -53,6 +60,9 @@ const CompletarCadastro = () => {
       return;
     }
 
+    console.log("TOKEN:", token);
+    console.log("TIPO:", typeof token);
+    console.log("USER:", localStorage.getItem("user"));
     console.log("ENVIANDO:", form);
 
     try {
@@ -67,17 +77,19 @@ const CompletarCadastro = () => {
           body: JSON.stringify({
             cpf: form.cpf,
             senha: form.senha,
-            
           }),
-        }
+        },
       );
 
-      const data = await response.json();
+      console.log("STATUS:", response.status);
+
+      const text = await response.text();
+
+      console.log("RESPOSTA BRUTA:", text);
 
       if (!response.ok) {
-        throw new Error(data.error || data.msg || "Erro ao completar cadastro");
+        throw new Error(text || "Erro ao completar cadastro");
       }
-
       const storedUser = JSON.parse(localStorage.getItem("user"));
 
       localStorage.setItem(
@@ -86,12 +98,13 @@ const CompletarCadastro = () => {
           ...storedUser,
           cpf: form.cpf,
           cadastro_completo: true,
-        })
+        }),
       );
 
       toast.success("Cadastro completo 🎉");
       navigate("/cadastrarcomercio");
     } catch (error) {
+      console.error(error);
       toast.error(error.message);
     }
   }

@@ -112,29 +112,42 @@ def login():
 @jwt_required()
 def completar_cadastro():
 
+    print("IDENTITY:", get_jwt_identity())
+
     json_data = request.get_json()
     print("JSON RECEBIDO:", json_data)
 
-    try:
-        data = completar_schema.load(json_data)
-    except ValidationError as err:
-        print("ERRO DE VALIDAÇÃO:", err.messages)
-        return jsonify(err.messages), 422
-    
     user_id = int(get_jwt_identity())
 
     usuario = Usuario.query.get(user_id)
 
-    if not usuario:
-        return jsonify({"error": "Usuário não encontrado"}), 404
+    print("USUARIO:", usuario)
+    print("EMAIL:", usuario.email if usuario else None)
+    print("CPF ATUAL:", usuario.cpf if usuario else None)
+    print("CADASTRO:", usuario.cadastro_completo if usuario else None)
 
-    usuario.cpf = data["cpf"]
-    usuario.senha = generate_password_hash(data["senha"])
-    usuario.cadastro_completo = True
+    try:
+        data = completar_schema.load(json_data)
+        print("DADOS VALIDADOS:", data)
+    except ValidationError as err:
+        print("ERRO DE VALIDAÇÃO:", err.messages)
+        return jsonify(err.messages), 422
 
-    db.session.commit()
+    try:
+        usuario.cpf = data["cpf"]
+        usuario.senha = generate_password_hash(data["senha"])
+        usuario.cadastro_completo = True
 
-    return jsonify({"msg": "Cadastro completo"}), 200
+        db.session.commit()
+
+        print("CADASTRO CONCLUÍDO")
+
+        return jsonify({"msg": "Cadastro completo"}), 200
+
+    except Exception as e:
+        db.session.rollback()
+        print("ERRO BANCO:", str(e))
+        return jsonify({"error": str(e)}), 500
 
 @usuarios_bp.route("/usuarios/<int:id>", methods=["PUT"])
 @jwt_required()

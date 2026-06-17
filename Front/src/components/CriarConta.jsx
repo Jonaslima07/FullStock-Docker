@@ -23,38 +23,56 @@ const CriarConta = () => {
     setForm({ ...form, [name]: value });
   }
 
-  async function handleGoogleRegister(e) {
-    e.preventDefault();
+ async function handleGoogleRegister(e) {
+  e.preventDefault();
 
-    try {
-      const result = await signInWithPopup(auth, provider);
-      const idToken = await result.user.getIdToken();
+  try {
+    const result = await signInWithPopup(auth, provider);
+    const idToken = await result.user.getIdToken();
 
-      const response = await fetch("http://localhost:5000/auth/google", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ idToken }),
-      });
+    const response = await fetch("http://localhost:5000/auth/google", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ idToken }),
+    });
 
-      if (!response.ok) {
-        throw new Error("Erro ao criar conta com Google");
-      }
+    const data = await response.json();
 
-      const data = await response.json();
+    console.log("RESPOSTA GOOGLE:", data);
 
-      localStorage.setItem("token", data.token);
-      localStorage.setItem("user", JSON.stringify(data.user));
-
-      toast.success("Conta criada com Google 🎉");
-      navigate("/completar-cadastro"); 
-    } catch (err) {
-      console.error(err);
-      toast.error("Erro ao criar conta com Google");
+    if (!response.ok) {
+      throw new Error(
+        data.error || "Erro ao criar conta com Google"
+      );
     }
-  }
 
+    if (!data.access_token) {
+      throw new Error("Token não recebido do backend");
+    }
+
+    localStorage.setItem("token", data.access_token);
+    localStorage.setItem("user", JSON.stringify(data.user));
+
+    console.log(
+      "TOKEN SALVO:",
+      localStorage.getItem("token")
+    );
+
+    toast.success("Conta criada com Google 🎉");
+    console.log("RESPOSTA GOOGLE:", data);
+
+    if (data.user?.cadastro_completo) {
+      navigate("/dashboard");
+    } else {
+      navigate("/completar-cadastro");
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error(err.message || "Erro ao criar conta com Google");
+  }
+}
   function validarSenha(senha) {
     const regex =
       /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&.#_-])[A-Za-z\d@$!%*?&.#_-]{8,}$/;
