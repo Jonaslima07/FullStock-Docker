@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 import "./Dashboard.css";
+import fotoPerfil from "../assets/fotoPerfil.jpeg";
 
 const Dashboard = () => {
   const navigate = useNavigate();
@@ -168,11 +169,13 @@ const Dashboard = () => {
         >
           {usuario?.photo ? (
             <img
-              src={usuario.photo}
-              alt="Foto do usuário"
-              className="header-user-photo"
-              onError={(e) => (e.target.src = "/avatar-default.png")}
-            />
+  src={usuario?.photo || fotoPerfil}
+  alt="Foto do usuário"
+   className="header-user-photo"
+  onError={(e) => {
+    e.target.src = fotoPerfil;
+  }}
+/>
           ) : (
             <span className="avatar-letter">
               {usuario?.nome?.charAt(0).toUpperCase()}
@@ -225,10 +228,13 @@ const Dashboard = () => {
             </button>
 
             <img
-              src={usuario?.photo || "/avatar-default.png"}
-              alt="Foto do usuário"
-              className="modal-user-photo"
-            />
+  src={usuario?.photo || fotoPerfil}
+  alt="Foto do usuário"
+  className="modal-user-photo"
+  onError={(e) => {
+    e.target.src = fotoPerfil;
+  }}
+/>
 
             <h3>{usuario?.nome}</h3>
             <p>
